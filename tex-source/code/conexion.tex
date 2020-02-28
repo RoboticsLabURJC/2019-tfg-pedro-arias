@@ -1,0 +1,30 @@
+\begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def establishConnection(self):
+    # Launch the MAVLink messages handler
+    if self.connection == 0:
+        print("New connection")
+        self.connection = MAVLinkDriver.uav_connect("udp:127.0.0.1:14540") # SITL
+        # self.connection = MAVLinkDriver.uav_connect("udpin:0.0.0.0:14550") # 3DRSolo
+
+        msgHandler = threading.Thread(target=MAVLinkDriver.mavMsgHandler, args=(
+                        self.connection, self.pose, self.navdata,
+                        self.msg_handler_thread_kill_signal), name='msg_Handler')
+        msgHandler.start()
+    ....
+
+def uav_connect(port, baudrate=None):
+    master = mavutil.mavlink_connection(port, baudrate, autoreconnect=True)
+    print('Connection established to device')
+    heartbeat = master.wait_heartbeat()
+    
+    print("Heartbeat Received", heartbeat)
+
+    # Set the complete set of commands
+    master.mav.request_data_stream_send(master.target_system, 
+                                             master.target_component,
+                                             mavutil.mavlink.MAV_DATA_STREAM_ALL,
+                                             RATE, 1)
+    return master
+    
+\end{minted}

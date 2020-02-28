@@ -1,0 +1,74 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def set_px4_mission(master, mission, extra, frame_type):
+    wp = mavwp.MAVWPLoader()
+    if frame_type:
+        frame = mavutil.mavlink.MAV_FRAME_GLOBAL # 0
+    else:
+        frame = mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT # 3
+
+    seq = 1
+    radius = 10
+    pose3Dwaypoints = mission.getMission()
+    N = len(pose3Dwaypoints)
+
+    for i in range(N):
+        if (i==0 and extra.takeOffDecision()):
+            navData, is_img = pose3Dwaypoints[0]
+            toff = mavutil.mavlink.MAVLink_mission_item_message(master.target_system,
+                                                master.target_component,
+                                                seq, frame,
+                                                mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,
+                                                0, 1, 0, 0, 0, 0,
+                                                navData.x, navData.y, navData.h)
+            wp.add(toff)
+            print("[MAVLink Driver] Takeoff to " + str(toff))
+            seq += 1
+            extra.setTakeoff(False)
+        elif (i==N-1 and extra.landDecision()):
+            navData, is_img = pose3Dwaypoints[N - 1]
+            land = mavutil.mavlink.MAVLink_mission_item_message(master.target_system,
+                                                master.target_component,
+                                                seq, frame,
+                                                mavutil.mavlink.MAV_CMD_NAV_LAND,
+                                                0, 1, 0, 0, 0, 0,
+                                                navData.x, navData.y, 0)
+            seq += 1
+            wp.add(land)
+            print("[MAVLink Driver] Land on " + str(land))
+        else:
+            navData, is_img = pose3Dwaypoints[i]
+            wayPoint = mavutil.mavlink.MAVLink_mission_item_message(master.target_system,
+                                                master.target_component,
+                                                seq, frame,
+                                                mavutil.mavlink.MAV_CMD_NAV_WAYPOINT,
+                                                0, 1, 0, radius, 0, 0,
+                                                navData.x, navData.y, navData.h)
+            wp.add(wayPoint)
+            seq += 1
+            print("[MAVLink Driver] Waypoint on "+ str(wayPoint))
+
+    master.waypoint_clear_all_send()
+
+    print("[MAVLink Driver] " + str(wp.count()) + " mission items to send")
+    master.waypoint_count_send(wp.count())
+
+    for i in range(wp.count()):
+        msg = master.recv_match(type=['MISSION_REQUEST'], blocking=True)
+        master.mav.send(wp.wp(i))
+        print ('[MAVLink Driver] Sending waypoint {0} '.format(i) 
+                                                + format(wp.wp(msg.seq)))
+
+    mission_validation = master.recv_match(type=['MISSION_ACK'], blocking=True)
+    print("[MAVLink Driver] Mission ACK message (type = 0 means successful)"
+                                                + str(mission_validation))
+
+    if getattr(mission_validation,'type') == 0:
+        print('[MAVLink Driver] Mission SENDED')
+        empty_mission = Mission()
+        mission.setMission(empty_mission)
+        return 0
+    else:
+        return 1
+
+\end{minted}

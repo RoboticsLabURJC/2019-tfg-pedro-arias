@@ -1,0 +1,17 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def set_loiter_mode(master):
+    master.set_mode("LOITER")
+    print('[MAVLink Driver] Flight mode set to LOITER')
+
+
+def set_rtl_mode(master):
+    master.set_mode_rtl()
+    print('[MAVLink Driver] Flight mode set to RTL')
+
+
+def set_auto_mode(master):
+    master.set_mode_auto()
+    print('[MAVLink Driver] Flight mode set to MISSION')
+
+\end{minted}

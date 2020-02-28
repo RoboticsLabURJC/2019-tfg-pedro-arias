@@ -1,0 +1,59 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def refreshAPMnavdata(master, navdata):
+    mav_type = master.mav_type
+    mav_autopilot = master.field('HEARTBEAT', 'autopilot', None)
+    mav_state = master.field('HEARTBEAT', 'system_status', None)
+
+    if mav_autopilot == 3: # ArduPilot
+        status_msg = 'SYS_STATUS'
+        imu_msg = 'RAW_IMU'
+    elif mav_autopilot == 12: # PX4
+        status_msg = 'BATTERY_STATUS'
+        imu_msg = 'HIGHRES_IMU'
+    else:
+        status_msg = 'BATTERY_STATUS'
+        imu_msg = 'HIGHRES_IMU'
+
+    # get battery_remaining
+    battery_remaining = master.field(status_msg, "battery_remaining", None)
+    if battery_remaining is None:
+        print("[MAVLink Server] Error: " + status_msg + " not received")
+        battery_remaining = 0
+
+    # get RAW_IMU APM
+    if imu_msg not in master.messages:
+        print("[MAVLink Server] Error: " + imu_msg + " not received")
+        rawIMU = None
+    else:
+        rawIMU = master.messages[imu_msg]
+
+    # get GLOBAL_POSITION_INT
+    if 'GLOBAL_POSITION_INT' not in master.messages:
+        print("[MAVLink Server] Error: GLOBAL_POSITION_INT not received")
+        global_position = None
+    else:
+        global_position = master.messages['GLOBAL_POSITION_INT']
+
+    # refresh the navdata
+    ndata = NavdataData()
+
+    ndata.batteryPercent = battery_remaining
+
+    try:
+        ndata.vx = getattr(global_position, "vx")
+    except Exception as e:
+        print("[MAVLink Server] Error: " + str(e))
+    try:
+        ndata.vy = getattr(global_position, "vy")
+    except Exception as e:
+        print("[MAVLink Server] Error: " + str(e))
+
+    ....
+
+    ndata.vehicle = mav_type
+    ndata.state = mav_state
+
+    navdata.setNavdataData(ndata)
+    
+\end{minted}
