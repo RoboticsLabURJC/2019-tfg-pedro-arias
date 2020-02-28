@@ -1,0 +1,11 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def arm_dissarm(master, arm):
+    if arm:
+        master.arducopter_arm()
+        print('[MAVLinkDriver] Vehicle armed')
+    else:
+        master.arducopter_disarm()
+        print('[MAVLinkDriver] Vehicle disarmed')
+
+\end{minted}

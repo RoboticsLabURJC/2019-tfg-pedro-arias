@@ -1,0 +1,35 @@
+\begin{minted}[frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+def __init__(self, *args, **kwargs):
+    
+    ....
+    self.widgets = QStackedWidget()
+    self.widgets.addWidget(MySetupWidget(self))
+    self.widgets.addWidget(MyMissionWidget(self))
+    self.widgets.addWidget(MyChecklistWidget(self))
+    self.widgets.addWidget(MyFollowWidget(self))
+    self.widgets.addWidget(MyLogWidget(self))
+    
+    self.setCentralWidget(self.widgets)
+
+    toolbar = QToolBar()
+    self.addToolBar(toolbar)
+
+    self.setup_action = QAction("Setup", self)
+    self.setup_action.triggered.connect(self.onSetupToolBarClick)
+    self.setup_action.setCheckable(True)
+    toolbar.addAction(self.setup_action)
+
+    toolbar.addSeparator()
+    ....
+    
+def onSetupToolBarClick(self):
+    self.setup_action.setChecked(True)
+    self.mission_action.setChecked(False)
+    self.checklist_action.setChecked(False)
+    self.follow_action.setChecked(False)
+    self.log_action.setChecked(False)
+
+    self.widgets.setCurrentIndex(0) # Fija el widget visible 
+    
+    
+\end{minted}

@@ -1,0 +1,22 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def mavMsgHandler(master, pose, navdata, stop_event):
+    lastSentHeartbeat = 0
+    while not stop_event.isSet():
+        msg = master.recv_msg()
+        
+        # send heartbeats to autopilot
+        if time.time() - lastSentHeartbeat > 0.5:
+            master.mav.heartbeat_send(mavlink2.MAV_TYPE_GCS, 
+                            mavlink2.MAV_AUTOPILOT_INVALID, 0, 0, 0)
+            lastSentHeartbeat = time.time()
+
+            # refresh the attitude
+            refreshAPMPose3D(master, pose)
+            refreshAPMnavdata(master, navdata)
+
+        elif msg is None or msg.get_type() == "BAD_DATA":
+            time.sleep(0.01)
+            continue
+
+\end{minted}

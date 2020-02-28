@@ -1,0 +1,45 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+def refreshAPMPose3D(master, pose):
+    # get attitude
+    if 'ATTITUDE' not in master.messages:
+        print("[MAVLink Server] Error: ATTITUDE not received")
+    else:
+        attitude = master.messages['ATTITUDE']
+        yaw = getattr(attitude, "yaw")
+        pitch = getattr(attitude, "pitch") * -1
+        roll = getattr(attitude, "roll")
+        q = quaternion.Quaternion([roll, pitch, yaw])
+
+    # get altitude
+    altitude = master.field('VFR_HUD', 'alt', None)
+    if altitude is None:
+        print("[MAVLink Server] Error: VFR_HUD not received")
+
+    # get GPS position from APM
+    latitude = 0
+    longitude = 0
+    if 'GPS_RAW_INT' not in master.messages:
+        gpsStatus = 1
+    else:
+        gps = master.messages['GPS_RAW_INT']
+
+        latitude = getattr(gps, "lat")/ 10e6
+        longitude = getattr(gps, "lon") / 10e6
+        GPS_fix_type = getattr(gps, "fix_type")
+        sat_visible = getattr(gps, "satellites_visible")
+
+    # refresh the pose3D
+    data = Pose3DData()
+
+    data.x = latitude
+    data.y = longitude
+    data.z = altitude
+    data.h = altitude
+    data.q0 = q.__getitem__(0)
+    data.q1 = q.__getitem__(1)
+    data.q2 = q.__getitem__(2)
+    data.q3 = q.__getitem__(3)
+    pose.setPose3DData(data)
+
+\end{minted}

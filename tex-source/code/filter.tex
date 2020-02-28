@@ -1,0 +1,34 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+    def sceneEventFilter(self, source, event):
+        if event.type() == QtCore.QEvent.GraphicsSceneMousePress:
+            if event.button() == QtCore.Qt.LeftButton:
+                self.initPos = event.scenePos()
+                return True
+        elif event.type() == QtCore.QEvent.GraphicsSceneMouseRelease:
+            if event.button() == QtCore.Qt.LeftButton:
+                self.pos = event.scenePos()
+                if self.initPos == self.pos:
+                    # Add waypoint
+                    self.scene().addWayp(event.scenePos())
+                else:
+                    # Drag & Drop
+                    
+                    ....
+                    
+                    self.scene().updateScene(desp_tx, desp_ty, 
+                                                desp_tz, cx, cy)
+                self.initPos = None
+                return True
+        elif event.type() == QtCore.QEvent.GraphicsSceneWheel:
+            # Zomm-in Zomm-out by mouse wheel movement
+            
+            ....
+
+            self.scene().updateZoom(desp_tz, pos)
+            return True
+
+        # Another event
+        return QGraphicsItem.sceneEventFilter(self, source, event) 
+
+\end{minted}

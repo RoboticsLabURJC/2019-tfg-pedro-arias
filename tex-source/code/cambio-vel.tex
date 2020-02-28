@@ -1,0 +1,9 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+master.mav.command_long_send(master.target_system,
+                                 master.target_component,
+                                 mavutil.mavlink.MAV_CMD_DO_CHANGE_SPEED,
+                                 0,
+                                 0, speed, 0, 0, 0, 0, 0)
+                                 
+\end{minted}

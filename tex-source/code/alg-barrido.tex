@@ -1,0 +1,33 @@
+\begin{minted} [frame=lines, framesep=2mm, baselinestretch=1.2, bgcolor=LightGray, fontsize=\footnotesize, linenos]{python}
+
+    def calc_path(self):
+        # Fija los parámetros iniciales del escaneo
+        self.set_scan(self.p_init)
+
+        # Primera pasada
+        self.wayp.append(self.v_scan)
+        self.calc_intermediates(self.v_scan, 
+                    self.get_first_vertex(self.v_scan, self.l_scan))
+        self.wayp.append(self.get_first_vertex(self.v_scan, self.l_scan))
+
+        i = 1
+        while True:
+            # Calcula la siguiente pasada
+            aux = self.get_next_aux(i) 
+            # Comprueba si la pasada es válida
+            vertexes_valid = self.get_valid_vertex(aux) 
+            # Ordena los puntos de la pasada
+            vertexes_valid = self.get_next_vertex(i, vertexes_valid, self.u_scan)
+
+            if len(vertexes_valid) == 0: # FIN
+                break
+            elif len(vertexes_valid) == 1:
+                self.wayp.append(vertexes_valid[0])
+            elif len(vertexes_valid) >= 2:
+                self.wayp.append(vertexes_valid[0]) # Siguiente pasada
+                self.calc_intermediates(vertexes_valid[0], vertexes_valid[-1])
+                self.wayp.append(vertexes_valid[-1])
+
+            i = i + 1
+
+\end{minted}

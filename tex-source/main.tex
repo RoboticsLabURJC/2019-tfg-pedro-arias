@@ -1,0 +1,147 @@
+\documentclass[a4paper, 12pt]{memoir} %report
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} % dictionary
+\usepackage{subfiles} % organize code in different files
+\usepackage[a4paper, margin=2.5cm]{geometry} % page size and margins
+\usepackage{float} % positioning fibures and labels
+\usepackage{hyperref} % add hyperlinks in the index
+
+% FIGURES
+\usepackage{graphicx} % add figures
+\usepackage{caption}
+\usepackage{subcaption} % add two subfigures at the same figure
+\graphicspath{ {figures/} } % path to figures
+
+% TABLES
+\usepackage{threeparttablex} % fancy tables with three parts, top, mid and bottom
+\usepackage{booktabs, caption, makecell}
+\usepackage{multirow} % multirow and multicolumn cells in tables
+
+% GLOSSARY
+\usepackage[acronym, toc, nonumberlist]{glossaries} % glossary and acronyms
+
+% APPENDIX
+\usepackage{appendix}
+
+% STYLE
+\usepackage[tt=false]{libertine} % fancy title
+\usepackage{fancyhdr} %for headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage} % page number left in even and right in odd pages
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{ \nouppercase{\rightmark}}
+
+% CODE
+\usepackage{minted} % python code
+\usepackage{xcolor} % add colors
+\definecolor{LightGray}{gray}{0.9} % background color
+\usemintedstyle{colorful} % styles: pastie
+\captionsetup[listing]{position=bottom,skip=-10pt} % move caption of listing
+
+\usepackage{lipsum} % temporal
+
+% RENEW CMDS
+\providecommand{\keywords}[1]{\textbf{\textit{Palabras clave---}} #1} % Defining keywords
+
+
+\title{TFG-Teleco}
+\author{pedro.arias}
+\date{December 2019}
+
+\input{glossary.tex} % Acronyms and symbols
+
+\begin{document}
+
+% RENEW COMMANDS
+\renewcommand*\listtablename{Índice de tablas}
+\renewcommand\spanishtablename{Tabla}
+\renewcommand\theadfont{\bfseries}
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}
+\renewcommand\listingscaption{Código}
+\renewcommand\listoflistingscaption{Índice de códigos}
+
+\renewcommand{\listoflistings}{%
+  \cleardoublepage
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}%
+  \listof{listing}{\listoflistingscaption}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%       FRONT       %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+
+% Titulo
+\input{title.tex}
+\cleardoublepage
+
+%% DEDICATORIA
+
+% Abstrac
+\addcontentsline{toc}{chapter}{Resumen}
+\subfile{chapters/abstrac}
+
+% Agradecimientos
+\chapter*{Agradecimientos}
+\addcontentsline{toc}{chapter}{Agradecimientos}
+\subfile{chapters/acknowledgments}
+\clearpage
+
+% Indice
+\tableofcontents
+\clearpage
+
+% Indices de figuras, tablas y codigos
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+\listoflistings
+\clearpage
+
+% Acronimos
+\printglossary[type=\acronymtype, title=Acrónimos, toctitle=Acrónimos, style=superheader]
+\cleardoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%       MAIN        %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+
+\chapter{Introducción} \label{chapter:intro}
+\subfile{chapters/01-intro}
+
+\chapter{Infraestructura} \label{chapter:infra}
+\subfile{chapters/02-infra}
+
+\chapter{Estación de Tierra, diseño e implementación} \label{chapter:dis-impl}
+\subfile{chapters/03-tierra}
+
+\chapter{Resultados} \label{chapter:results}
+\subfile{chapters/04-resultados}
+
+\chapter{Conclusiones y líneas futuras} \label{chapter:concl}
+\subfile{chapters/05-conclusiones}
+
+% Anexos
+\begin{appendices}
+\chapter{Manual de Usuario}
+The contents...
+
+\chapter{Casos de Uso}
+Los contenidos
+
+\end{appendices}
+
+\glsaddall % show all acronyms and symbols
+
+% Referencias
+\bibliographystyle{plain} % named or plain
+\bibliography{refs} % "refs.bib" file
+
+\end{document}
