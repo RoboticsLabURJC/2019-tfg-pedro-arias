@@ -8,7 +8,6 @@ def __init__(self, *args, **kwargs):
     self.widgets.addWidget(MyChecklistWidget(self))
     self.widgets.addWidget(MyFollowWidget(self))
     self.widgets.addWidget(MyLogWidget(self))
-    
     self.setCentralWidget(self.widgets)
 
     toolbar = QToolBar()
@@ -18,7 +17,6 @@ def __init__(self, *args, **kwargs):
     self.setup_action.triggered.connect(self.onSetupToolBarClick)
     self.setup_action.setCheckable(True)
     toolbar.addAction(self.setup_action)
-
     toolbar.addSeparator()
     ....
     
@@ -30,6 +28,5 @@ def onSetupToolBarClick(self):
     self.log_action.setChecked(False)
 
     self.widgets.setCurrentIndex(0) # Fija el widget visible 
-    
     
 \end{minted}

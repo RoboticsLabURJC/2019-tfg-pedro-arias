@@ -65,20 +65,24 @@ La interfaz gráfica de usuario (GUI, \emph{Graphical User Interface}) se compon
 \subsection{Ventana principal}
 La ventana principal se divide en cinco diferentes pestañas según las funcionalidades de la aplicación. Estas pestañas coinciden con los objetivos secundarios presentados durante la Sección \ref{section:intro-objetivos} y reciben el nombre de \emph{Setup} para la caracterización de la aeronave y la carga de pago, \emph{Mission} para la creación de misiones de vuelo automático, \emph{Checklist} para la comprobación de pre-vuelo, \emph{Follow} para el seguimiento de vuelo y \emph{Log} para el análisis de datos post-vuelo. El la Figura \ref{fig:setup} se puede observar la primera pestaña de la aplicación, tal y como se encuentra recién iniciada la aplicación. \\
 
+
+Esta estructura se ha conseguido haciendo uso de diferentes \emph{QWidgets} asociado a cada una de las pestañas organizados a través de un \emph{QStackedWidget} y una serie de \emph{QAction} que permiten activar y visualizar un \emph{QWidget} u otro. A continuación se muestra un fragmento del código (Cód. \ref{listing:vent-ppal}) donde se observa la estructura utilizada.
+
+\begin{longlisting}
+\input{code/estructura-ventana-ppal}
+\caption{Estructura de pestañas en la ventana principal.}
+\label{listing:vent-ppal}
+\end{longlisting}
+
+\vspace{5mm}
+
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{screenshots/setup.png}
     \caption{Ventana principal con la pestaña \emph{Setup} activa.}
     \label{fig:setup}
 \end{figure}
-
-Esta estructura se ha conseguido haciendo uso de diferentes \emph{QWidgets} asociado a cada una de las pestañas organizados a través de un \emph{QStackedWidget} y una serie de \emph{QAction} que permiten activar y visualizar un \emph{QWidget} u otro. A continuación se muestra un fragmento del código (Cód. \ref{listing:vent-ppal}) donde se observa la estructura utilizada.
-
-\begin{listing}[h]
-\input{code/estructura-ventana-ppal}
-\caption{Estructura de pestañas en la ventana principal.}
-\label{listing:vent-ppal}
-\end{listing}
 
 Para cada una de las pestañas se crea una clase nueva a través de una herencia simple de la clase abstracta \emph{QWidget}. De esta forma, las clases creadas comparten los atributos y procedimientos de la clase base, pudiendo ser personalizadas para que cumplan sus requisitos individuales. \\
 
@@ -100,13 +104,24 @@ El bloque de mapas permite la visualización e interacción a través de la inte
 Entre las diferentes acciones de las que se encarga el sistema se distinguen la visualización, la obtención de la imagen, la conversión de coordenadas y el manejo de las interacciones del usuario. 
 
 \subsection{Visualización del mapa}
-Para dar soporte a la visualización del mapa a través de la interfaz gráfica no es suficiente con la escena. La clase \emph{QGraphicsView} proporciona un \emph{widget} para mostrar el contenido de una \emph{QGraphicsScene}. Así pues, la \emph{QGraphicsView} (vista) sirve de nexo entre la escena y la interfaz gráfica. Son dos las vistas utilizadas sobre una única escena, pues en dos pestañas es necesario visualizar el mapa, en \emph{Mission} y en \emph{Follow}. \\
-Por otro lado, con el objetivo de agilizar la visualización y la navegación a través del mapa se presenta un mapa en mosaico, compuesto por un número fijo de teselas o imágenes.
+Para dar soporte a la visualización del mapa a través de la interfaz gráfica no es suficiente con la escena. La clase \emph{QGraphicsView} proporciona un \emph{widget} para mostrar el contenido de una \emph{QGraphicsScene}. Así pues, la \emph{QGraphicsView} (vista) sirve de nexo entre la escena y la interfaz gráfica. Son dos las vistas utilizadas sobre una única escena, pues en dos pestañas es necesario visualizar el mapa, en \emph{Mission} y en \emph{Follow}. Esta estructura se muestra en la Figura \ref{fig:view-scene}. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{view-scene2.pdf}
+    \caption{Estructura vistas-escena.}
+    \label{fig:view-scene}
+\end{figure}
+
+Por otro lado, con el objetivo de agilizar la visualización y la navegación a través del mapa se presenta un mapa en mosaico, compuesto por un número fijo de teselas o imágenes. Esta estructura en mosaico se puede observar en la Figura \ref{fig:esq-teselas}.
 Así pues, se introduce la primera herramienta bajo la escena, las teselas. Las teselas constituyen un grupo de elementos gráficos 2D que son gobernados bajo las mismas reglas. Estos elementos gráficos son en su totalidad imágenes con una posición asociada que permite la construcción del mosaico. En esta primer versión del software las teselas utilizadas son nueve, aunque se está trabajando para que el número utilizado sea variable permitiendo así modificar el tamaño de la escena y dar más versatilidad al sistema de mapeado. \\
 
-% figura de estructura de view y scene
-
-% figura de estructura de teselas
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{esquema-teselas.pdf}
+    \caption{Esquema de vista en mosaico.}
+    \label{fig:esq-teselas}
+\end{figure}
 
 \subsection{Obtención de la imagen}
 El sistema de mapas soporta diferentes formatos u orígenes de las imágenes. Actualmente existen tres alternativas para visualizar el mapa:
@@ -554,12 +569,6 @@ Por otro lado, la implementación en código del envío del mensaje para el camb
 \label{table:cmd-long}
 \end{table}
 
-\begin{listing}[h]
-\input{code/cambio-vel}
-\caption{Mensaje \emph{COMMAND\_LONG} para el cambio de velocidad de vuelo.}
-\label{listing:cambio-vel}
-\end{listing}
-
 \begin{table}[H]
     \centering
     \begin{threeparttable}
@@ -585,6 +594,12 @@ Por otro lado, la implementación en código del envío del mensaje para el camb
 \caption{Comando \emph{MAV\_CMD\_DO\_CHANGE\_SPEED} \cite{change-speed-cmd}.}
 \label{table:cmd-change-speed}
 \end{table}
+
+\begin{listing}[h]
+\input{code/cambio-vel}
+\caption{Mensaje \emph{COMMAND\_LONG} para el cambio de velocidad de vuelo.}
+\label{listing:cambio-vel}
+\end{listing}
 
 Finalmente, el armado y desarmado de la aeronave también resulta trivial gracias a pyMavlink. El código utilizado por el \emph{driver} se muestra en el siguiente fragmento (Cód. \ref{listing:arm}).
 
