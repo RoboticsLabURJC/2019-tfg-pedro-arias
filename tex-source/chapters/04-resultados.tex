@@ -12,11 +12,11 @@ En este capítulo se recogen las pruebas realizadas a la estación de tierra. A 
     \item Cambio de idioma de la aplicación.
 \end{enumerate}
 
-Además, el Apéndice \ref{} recoge una tabla que esquematiza cada uno de los casos de uso. Junto a las tablas se añaden una serie de diagramas de caso de uso que tratan de ejemplificar la interacción entre el usuario y la aplicación para cada caso. \\
+Además, el Apéndice \ref{chapter:use-case} recoge una tabla que esquematiza cada uno de los casos de uso. Junto a las tablas se añaden una serie de diagramas de caso de uso que tratan de ejemplificar la interacción entre el usuario y la aplicación para cada caso. \\
 Por último, y previo paso a las secciones con los casos de uso, se adjuntan dos enlaces a los vídeos con pruebas experimentales reales, uno con misiones polilíneas \footnote{https://youtu.be/UOv8Go\_Q22k} y otro con misiones por patrón \footnote{https://youtu.be/tpmpdkG0CjM}. Además, se adjunta también la lista de reproducción \footnote{https://www.youtube.com/playlist?list=PLGlX46StCA-QAXmeQp5omNhllGJ3CMjcO} que muestra la evolución de la aplicación a lo largo del tiempo con las distintas versiones realizadas.
 
 \section{Caso de uso 1: Caracterización de una aeronave y su carga de pago.} \label{section:results-caso1}
-El primer caso de uso describe una situación en la que un operario cualquiera desee caracterizar una aeronave y su carga de pago mediante la introducción de sus parámetros en la aplicación. La tabla con el caso de uso se presenta en el Apéndice \ref{}. \\
+El primer caso de uso describe una situación en la que un operario cualquiera desee caracterizar una aeronave y su carga de pago mediante la introducción de sus parámetros en la aplicación. La tabla con el caso de uso se presenta en el Apéndice \ref{section:app-caso1}. \\
 Para poder realizar la acción requerida, la aplicación debe estar abierta y en ejecución. Los diferentes pasos de una secuencia normal serían:
 
 \begin{enumerate}
@@ -32,7 +32,7 @@ Es importante destacar que no es posible tener más de un archivo de configuraci
 
 
 \section{Caso de uso 2: Carga de un mapa local en una determinada posición.} \label{section:results-caso2}
-En este caso de uso se explica el proceso de carga de un mapa local mostrando una posición determinada en la aplicación. En el Apéndice \ref{} se muestra una tabla que recoge el caso de uso. \\
+En este caso de uso se explica el proceso de carga de un mapa local mostrando una posición determinada en la aplicación. En el Apéndice \ref{section:app-caso2} se muestra una tabla que recoge el caso de uso. \\
 Este ejemplo requiere que la aplicación se encuentre abierta y en ejecución. Además, es necesario disponer de un archivo de imagen geo-referenciada con la ubicación precisada. Estos archivos pueden ser obtenido desde la página web del Instituto Geográfico Nacional \cite{ign}. Solo dos formatos son admitidos, las extensiones TIFF y ECW. \\
 Una secuencia normal ejecutada por un usuario cualquiera sería:
 
@@ -48,7 +48,7 @@ Una secuencia normal ejecutada por un usuario cualquiera sería:
 En caso de que la posición inicial introducida no fuese válida por encontrarse fuera de la superficie abarcada por el fichero, la aplicación no mostraría ningún error al usuario. Sin embargo, la escena no mostraría ninguna imagen y permanecería mostrando una imagen en blanco, pues sobre esa posición no dispone de información a mostrar. Para modificar la posición mostrada en la escena, se recomienda repetir el caso de uso.
 
 \section{Caso de uso 3: Creación y posterior guardado en fichero de una misión polilínea.} \label{section:results-caso3}
-Este caso de uso prueba las acciones necesarias para la creación y posterior guardado de una misión polilínea. El Apéndice \ref{} recoge el caso de uso simplificado en una tabla. \\
+Este caso de uso prueba las acciones necesarias para la creación y posterior guardado de una misión polilínea. El Apéndice \ref{section:app-caso3} recoge el caso de uso simplificado en una tabla. \\
 El único requisito para poder completar este experimento radica en tener abierta y en ejecución la aplicación. La secuencia normal de ejecución se resume en los siguientes puntos:
 
 \begin{enumerate}
@@ -68,7 +68,7 @@ Es importante destacar que no es posible crear más de una misión al mismo tiem
 Se adjunta un enlace de un vídeo \footnote{https://youtu.be/UOv8Go\_Q22k} de un experimento real en el que junto a otras acciones se completa el caso de uso actual. Es importante destacar que algún aspecto menor puede diferir con la versión actual, pues en el momento de grabación del vídeo la aplicación se encontraba todavía en proceso de desarrollo.
 
 \section{Caso de uso 4: Establecimiento de conexión con la aeronave.} \label{section:results-caso4}
-El cuarto caso de uso explica el procedimiento a seguir para establecer la conexión entre la aeronave y la estación de tierra. Se agrega en el Apéndice \ref{} una tabla resumen y simplificada de lo que en esta sección se describe. \\
+El cuarto caso de uso explica el procedimiento a seguir para establecer la conexión entre la aeronave y la estación de tierra. Se agrega en el Apéndice \ref{section:app-caso4} una tabla resumen y simplificada de lo que en esta sección se describe. \\
 Para una perfecta ejecución del caso de uso es necesario que la aplicación se encuentre abierta y en ejecución. A su vez, la aeronave debe estar encendida y con el posicionamiento GPS establecido. La siguiente secuencia recoge los pasos a seguir en situaciones normales:
 
 \begin{enumerate}
@@ -80,7 +80,7 @@ Es importante resaltar que si la conexión no se puede establecer debido a algú
 
 \section{Caso de uso 5: Creación de una misión por patrón y validación de la misión.} \label{section:results-caso5}
 El quinto caso de uso muestra como deberá comportarse la aplicación frente a la intención por parte de un usuario para crear una misión y la validación de la misma. Esta acción conlleva los requisitos de que la aplicación se encuentre abierta y en ejecución, y de que la aeronave se encuentre caracterizada. Para una correcta configuración de la aeronave se puede seguir el caso de uso 1 (Secc. \ref{section:results-caso1}).
-Con caso de uso se presenta también una tabla en el Apéndice \ref{} que recoge sus principales aspectos. La secuencia normal de ejecución es la siguiente:
+Con caso de uso se presenta también una tabla en el Apéndice \ref{section:app-caso5} que recoge sus principales aspectos. La secuencia normal de ejecución es la siguiente:
 
 \begin{enumerate}
     \item La pestaña \emph{Mission} debe estar activa. Para ello hay que pinchar en el menú con si mismo nombre \emph{Mission}.
@@ -102,7 +102,7 @@ Es importante destacar que al igual que sucedía con las misiones polilínea, no
 
 \section{Caso de uso 6: Carga de una misión en fichero, envío y seguimiento de la misión.} \label{section:results-caso6}
 Este caso de uso describe la carga de una misión en fichero a la aplicación, la validación y el envío de la misión, seguido de un posterior seguimiento de la misión. Son varios los requisitos asociados a este caso de uso. En primer lugar, la aplicación debe estar abierta y en ejecución. En segundo lugar, la conexión a la aeronave debe haber sido correctamente establecida siguiendo el caso de uso 4 (Secc. \ref{section:results-caso4}). Además, una misión debe haber sido creada y guardada en un fichero previamente. Los casos de usos 3 y 5 muestran como crear los distintos tipos de misión (Secc. \ref{section:results-caso3} y \ref{section:results-caso5}). \\
-En el Apéndice \ref{} se presenta este caso de uso en formato de tabla con los principales aspecto esquematizados. La secuencia normal de ejecución es la siguiente:
+En el Apéndice \ref{section:app-caso6} se presenta este caso de uso en formato de tabla con los principales aspecto esquematizados. La secuencia normal de ejecución es la siguiente:
 
 \begin{enumerate}
     \item En primer lugar, se debe pinchar sobre \emph{Mission} para desplegar dicha pestaña.
@@ -120,7 +120,7 @@ Se adjunta un enlace de un vídeo \footnote{https://youtu.be/tpmpdkG0CjM} de un 
 
 \section{Caso de uso 7: Interrupción de una misión y vuelta a casa.} \label{section:results-caso7}
 Este caso de uso recoge los pasos necesarios para la interrupción de una misión y la vuelta a casa de la aeronave. Para que esta situación tenga lugar, la aplicación debe estar abierta, en ejecución, con conexión establecida y con una misión en curso. En el cuarto caso de uso (Secc. \ref{section:results-caso4}) se explica el procedimiento para establecer la conexión, mientras que en el sexto caso de uso (Secc. \ref{section:results-caso6}) se recogen los pasos para el inicio y el seguimiento de una misión en modo automático. \\
-Este caso de uso se presenta en formato de tabla en el Apéndice \ref{}. La secuencia de ejecución en condiciones normales es la siguiente:
+Este caso de uso se presenta en formato de tabla en el Apéndice \ref{section:app-caso7}. La secuencia de ejecución en condiciones normales es la siguiente:
 
 \begin{enumerate}
     \item La pestaña \emph{Follow} debe estar activa. Para ello es necesario pinchar en el menú con el mismo nombre en la ventana principal. En esta pestaña se pueden observar las actuaciones de la aeronave en todo momento.
@@ -130,7 +130,7 @@ Este caso de uso se presenta en formato de tabla en el Apéndice \ref{}. La secu
 El usuario puede decidir anular el retorno a casa. Para ello dispone de dos modos de vuelo. En primer lugar, pinchando sobre el botón \emph{Loiter} se activaría el modo de vuelo \emph{Hold} o \emph{Loiter}, donde la aeronave mantendría la posición en el momento de activación. En segundo lugar, pinchando sobre el botón \emph{Resume}, la aeronave volvería al modo de vuelo automático y continuaría con la misión interrumpida.
 
 \section{Caso de uso 8: Cambio de idioma de la aplicación.} \label{section:results-caso8}
-Finalmente, el último caso de uso presentado muestra como cambiar dinámicamente el idioma del texto de la aplicación. La aplicación debe estar abierta y en ejecución. El Apéndice \ref{} incluye una tabla con el caso de uso esquematizado. La secuencia de ejecución en condiciones normales es la siguiente:
+Finalmente, el último caso de uso presentado muestra como cambiar dinámicamente el idioma del texto de la aplicación. La aplicación debe estar abierta y en ejecución. El Apéndice \ref{section:app-caso8} incluye una tabla con el caso de uso esquematizado. La secuencia de ejecución en condiciones normales es la siguiente:
 
 \begin{enumerate}
     \item En primer lugar, es necesario acceder a la ventana secundaria de ejecución siguiendo la ruta \emph{File - Settings - More Settings} en el menu de fichero de la aplicación.

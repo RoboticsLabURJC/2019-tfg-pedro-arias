@@ -13,22 +13,19 @@
                     self.scene().addWayp(event.scenePos())
                 else:
                     # Drag & Drop
-                    
                     ....
                     
-                    self.scene().updateScene(desp_tx, desp_ty, 
-                                                desp_tz, cx, cy)
+                    self.scene().updateScene(desp_tx, desp_ty, desp_tz, cx, cy)
                 self.initPos = None
                 return True
         elif event.type() == QtCore.QEvent.GraphicsSceneWheel:
             # Zomm-in Zomm-out by mouse wheel movement
-            
             ....
 
             self.scene().updateZoom(desp_tz, pos)
             return True
 
-        # Another event
-        return QGraphicsItem.sceneEventFilter(self, source, event) 
+        return QGraphicsItem.sceneEventFilter(self, source, event) # Another event
+
 
 \end{minted}
