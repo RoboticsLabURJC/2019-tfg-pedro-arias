@@ -1,14 +1,6 @@
 \documentclass[../main.tex]{subfiles}
 
-Durante este capítulo se explican las diferentes herramientas \emph{software} y \emph{hardware} que han servido de ingredientes en la realización de este trabajo. A la hora de proceder a desengranar los diferentes agentes que entran en acción, se realiza previamente una clasificación entre el lado tierra, el lado aire y la comunicación entre estos que se reflejan en las secciones de este capítulo. \\
-En la Figura \ref{fig:esquema-general} se puede observar un esquema general que representa la arquitectura del sistema. El esquema muestra tanto el hardware como el software que integra el sistema, en los que se profundizará durante las secciones de este capítulo.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{software-hardware.pdf}
-    \caption{Esquema general del sistema.}
-    \label{fig:esquema-general}
-\end{figure}
+Durante este capítulo se explican las diferentes herramientas \emph{software} y \emph{hardware} que han servido de ingredientes en la realización de este trabajo. A la hora de proceder a desgranar los diferentes agentes que entran en acción, se realiza previamente una clasificación entre el lado tierra, el lado aire y la comunicación entre estos que se reflejan en las secciones de este capítulo. \\
 
 \section{Lado Tierra} \label{section:infra-tierra}
 El lado tierra se compone por un ordenador donde se ejecuta \emph{UAVCommander}, la aplicación desarrollada. El software se idea como multiplataforma, por lo que el sistema operativo del ordenador puede ser cualquiera de las principales soluciones en el mercado. \\
@@ -35,15 +27,35 @@ El lado aire se compone por el drone. Se distinguen dos posibilidades, el drone 
 
 El estimador toma una o más entradas de diferentes sensores, las combina y calcula el estado del vehículo. La controladora toma un punto de ajuste y una medición o estado estimado como entradas. Su objetivo es ajustar el valor del estado estimado de modo que coincida con el punto de ajuste. La salida es una corrección para eventualmente alcanzar ese punto de ajuste. Por ejemplo, el controlador de posición toma los puntos de ajuste de posición como entradas, y según la posición estimada calcula la salida que es un punto de ajuste de actitud y empuje que mueve el vehículo hacia la posición deseada. Finalmente, el mezclador toma comandos concretos, como girar a la derecha, y los traduce a comando de motor individuales, al tiempo que garantiza que no se excedan algunos límites. Esta traducción es específica para cada vehículo y depende de varios factores, como la disposición del motor con respecto al centro de gravedad o la inercia rotacional del vehículo. \\
 
-La aeronave real puede ser de diversa índole, como ya se ha visto en el capítulo anterior. A lo largo de este proyecto se han utilizado las siguientes aeronaves:
+El uso de drone real se ha limitado a las últimas fases de desarrollo, que muy frecuentemente se ha visto sustituido por un drone simulado (ver Fig. \ref{fig:drone-sim}). Sobre el sistema propuesto en la sección anterior (Ubuntu 18.04.3) se ejecuta una simulación en software (\textbf{SITL}, \emph{Software-In-The-Loop}) de una aeronave. El SITL permite enviar y recibir comandos a una controladora sin necesidad de tener el equipo real y evitando la pérdida de la aeronave en caso de error del programa. \\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{drone-sim.png}
+    \caption{Cuacóptero simulado sobre Gazebo9.}
+    \label{fig:drone-sim}
+\end{figure}
+
+El firmware utilizado como controladora es \textbf{PX4} \cite{px4}, cuyo esquema de SITL se puede observar en la Figura \ref{fig:sitl-px4}. PX4 es un software de control de vuelo de código abierto para drones y otros vehículos no tripulados. PX4 proporciona un estándar para ofrecer soporte de hardware de drones, lo que permite que un ecosistema construya y mantenga hardware y software de forma escalable. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{px4-sitl.pdf}
+    \caption{Esquema de PX4 sobre SITL \cite{px4}.}
+    \label{fig:sitl-px4}
+\end{figure}
+
+Además, la simulación se puede conectar con un simulador para hacer más completa la experiencia y mostrar el vuelo en un entorno de pruebas con elementos del mundo real. Entre los distintos simuladores se ha elegido Gazebo \cite{gazebo}. Este simulador de código abierto es por excelencia el más utilizado en aplicaciones de robótica y visión artificial. Debido a su gestión abierta permite la integración de múltiples vehículos, mundos, sensores, físicas, etc. La versión utilizada durante el proyecto es \textbf{Gazebo9}. \\
+
+La aeronave real puede ser de diversa índole, como ya se ha visto en el capítulo anterior. A lo largo de este proyecto se prevé utilizar las siguientes aeronaves:
 
 \begin{itemize}
     \item \textbf{3DR Solo Drone:} Cuadricóptero fabricado por 3DR Robotics \cite{3dr} (Fig. \ref{fig:3dr}). Posee una controladora con firmware Ardupilot \cite{ardupilot}, una de las soluciones más usada en el mercado. Una de las principales ventajas que decidieron el uso de este drone en las primeras fases de vuelo frente a otros equipos del laboratorio es la existencia de una emisora (o mando de control), el cual permite controlar la aeronave ante cualquier problema que no este previsto en el software.
-    \item \textbf{Geodrone training:} Ala fija propiedad de Conyca S.L \cite{conyca} (Fig. \ref{fig:geodrone-training}). Posee una controladora con firmware Ardupilot \cite{ardupilot}. Al igual que el anterior, posee una emisora que aporta robustez y permite actuar ante cualquier imprevisto.
+    \item \textbf{Geodrone training:} Aeronave de ala fija (Fig. \ref{fig:geodrone-training}). Posee una controladora con firmware Ardupilot \cite{ardupilot}. Al igual que el anterior, posee una emisora que aporta robustez y permite actuar ante cualquier imprevisto.
     %\item \textbf{PX4:} A completar.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
     \begin{subfigure}{0.5\textwidth}
         \includegraphics[height=6cm, width=0.9\linewidth]{3dr.jpg}
         \caption{3DR Solo Drone.}
@@ -59,26 +71,24 @@ La aeronave real puede ser de diversa índole, como ya se ha visto en el capítu
     \label{fig:drone-real}
 \end{figure}
 
-Sin embargo, el uso de drone real se ha limitado a las últimas fases de desarrollo, que muy frecuentemente se ha visto sustituido por un drone simulado (ver Fig. \ref{fig:drone-sim}). Sobre el sistema propuesto en la sección anterior (Ubuntu 18.04.3) se ejecuta una simulación en software (\textbf{SITL}, \emph{Software-In-The-Loop}) de una aeronave. El SITL permite enviar y recibir comandos a una controladora sin necesidad de tener el equipo real y evitando la pérdida de la aeronave en caso de error del programa. \\
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{drone-sim.png}
-    \caption{Cuacóptero simulado sobre Gazebo9.}
-    \label{fig:drone-sim}
-\end{figure}
-
-El firmware utilizado como controladora es \textbf{PX4} \cite{px4}, cuyo esquema de SITL se puede observar en la Figura \ref{fig:sitl-px4}. Además, la simulación se puede conectar con Gazebo \cite{gazebo} para hacer más completa la experiencia y mostrar el vuelo en un entorno de pruebas con elementos del mundo real. La versión utilizada durante el proyecto es \textbf{Gazebo9}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{px4-sitl.pdf}
-    \caption{Esquema de PX4 sobre SITL \cite{px4}.}
-    \label{fig:sitl-px4}
-\end{figure}
-
 \section{Protocolo de comunicaciones} \label{section:infra-protoc}
 Tal como se ha adelantado en las secciones anteriores, el protocolo de comunicaciones utilizado es MAVLink \cite{mavlink}. MAVLink son las siglas de \emph{Micro Air Vehicle Link}, un protocolo de comunicaciones muy ligero para el intercambio de mensajes con un drone y sus componentes a bordo. La versión utilizada es \textbf{MAVLink v2}. \\
 Los extremos de la comunicación se han explicado en las secciones anteriores, siendo este protocolo el puente de comunicación entre el lado tierra y el lado aire. Es considerado como el protocolo estándar de comunicaciones en robótica aérea y las principales soluciones comerciales lo utilizan. Existen diferentes tipos de mensajes, comandos (de navegación, de \emph{perform}, etc.), enumerados y microservicios. \\
+Los mensajes son el objeto más pequeño de intercambio de información del protocolo. Son muchos los mensajes existentes y de diversa utilidad. Los diferentes mensajes de MAVLink se pueden observar en su documentación \cite{mavlink-msg}. Un ejemplo de un mensaje MAVLink se puede observar en el Código \ref{listing:msg-exp}.
 
-% Explicar mensajes???
+\begin{listing}[h]
+\input{code/msg-exp}
+\caption{Mensaje MAVLink tipo.}
+\label{listing:msg-exp}
+\end{listing}
+
+Existen un tipo especial de mensajes que encapsulan a los comandos, órdenes a ejecutar por la aeronave. Los comandos pueden ser de tres tipos, de navegación, de acción y de condición. Los comandos utilizados en el protocolo se pueden comprobar también en la documentación de MAVLink \cite{mavlink-msg}. Un ejemplo de comando MAVLink se puede observar en el Código \ref{listing:cmd-exp}.
+
+\begin{listing}[h]
+\input{code/cmd-exp}
+\caption{Comando MAVLink tipo.}
+\label{listing:cmd-exp}
+\end{listing}
+
+Los enumerados se usan para definir valores con nombre que se pueden usar como opciones en los mensajes, por ejemplo, para representar errores, estados o modos. Cada enumerado tiene un atributo de nombre obligatorio y puede contener una serie de elementos de entrada (con nombres exclusivos de enumeración) para los valores admitidos. Al igual que los mensajes y los comandos, los enumerados disponibles se pueden comprobar en la documentación de MAVLink \cite{mavlink-msg}. \\
+Finalmente, los microservicios representan protocolos de alto nivel que los sistemas MAVLink pueden adoptar para una mejor interacción. Los microservicios se utilizan para intercambiar muchos tipos de datos, incluidos: parámetros, misiones, trayectorias, imágenes y otros archivos. Los datos pueden ser mucho más grandes de lo que cabe en un solo mensaje, por lo que los microservicios definirán cómo se dividen y se vuelven a ensamblar los datos, y cómo garantizar que los datos perdidos se vuelvan a transmitir. Otros microservicios proporcionan reconocimiento de comandos, informes de errores, etc. Los diferentes microservicios se definen en la documentación de MAVLink \cite{mavlink-microserv}.

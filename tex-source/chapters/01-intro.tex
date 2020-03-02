@@ -2,7 +2,7 @@
 
 Este primer capítulo recoge lo esencial del trabajo. En él, se explica el contexto en el cual se enmarca el estudio, el problema a solucionar, la motivación del mismo y los objetivos extraídos del problema. Además, se presenta también cual será la estructura seguida en la memoria.
 
-\section{Contexto} \label{section:intro-contexto}
+\section{Robótica Aérea} \label{section:intro-contexto}
 El término \emph{robot} aparece por primera vez en 1920, en la obra teatral \emph{Rosum's Universal Robots} del escritor checo Karel Capek en cuyo idioma la palabra ``robota'' significa fuerza o servidumbre \cite{martin2007historia}. El nacimiento de la robótica y los robots surge asociado a la idea de trabajo y producción tras la Segunda Revolución Industrial y a lo largo del siglo XX. La automatización industrial de aquella época da lugar a los primeros sistemas de control automático que se extienden rápidamente a todos los sectores industriales, y que dan lugar a la robótica industrial tal como la conocemos hoy en día \cite{baturone2005robotica}. \\
 El término \emph{robótica} es acuñado por Isaac Asimov, definiendo a la ciencia que estudia a los robots. El propio Asimov postuló también las Tres Leyes de la Robótica en su libro \emph{Yo Robot} publicado en 1950 \cite{martin2007historia}. El término ha evolucionado mucho desde sus inicios, hoy entendemos la robótica como la ciencia o rama de la tecnología que estudia el diseño y construcción de máquinas capaces de desempeñar tareas realizadas por el ser humano o que requieren el uso de inteligencia \cite{rae}. Como se puede entender, la visión actual es mucho más amplia que en sus inicios y abarca muchas áreas de la ingeniería. \\
 Existen diversas clasificaciones en función de su arquitectura, de su aplicación, de su cronología, etc. Una de estas clasificaciones distingue robots en función de su morfología \cite{de2006robotica}, que suele distinguir los siguientes tipos:
@@ -25,7 +25,7 @@ Este trabajo se enmarca dentro de la robótica móvil, y más en concreto, dentr
 
 A la hora de establecer una clasificación de los UAV es posible atender a diferentes criterios. Siguiendo la clasificación propuesta por \emph{Barrientos et al.} \cite{barrientos2007vehiculos} se distinguen aeronaves en función del tipo de despegue, que puede ser vertical o no. A su vez, podemos subdividir las aeronaves en función del origen de su sustentación o del tipo de ala que poseen. Esta clasificación se representa en la Figura \ref{fig:clasif-uav}, mientras que en la Figura \ref{fig:tipos-uav} se muestran ejemplos de los diferentes tipos de UAV.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
         \includegraphics[height=6cm, width=0.9\linewidth]{alafija.jpeg}
         \caption{Aeroplano.}
@@ -58,8 +58,7 @@ Otros criterios de clasificación pueden responder a las capacidades de vuelo co
 La siguiente figura (Fig. \ref{fig:aplic-uav}) recoge alguna de las principales aplicaciones mencionadas. \\
 
 
-En la actualidad tiende a utilizarse el concepto de UAVS frente al de UAV. La extensión del concepto de vehículo a
-sistema refleja que el vehículo aéreo autónomo precisa para su funcionamiento de todo un sistema y no solo de la aeronave instrumentada. En concreto la instrumentación embarcada o segmento aire, debe verse complementada con la estación base o segmento tierra, debiéndose considerar las funcionalidades y características de ambos segmentos.
+En la actualidad tiende a utilizarse el concepto de UAVS frente al de UAV. La extensión del concepto de vehículo a sistema refleja que el vehículo aéreo autónomo precisa para su funcionamiento de todo un sistema y no solo de la aeronave instrumentada. En concreto la instrumentación embarcada o segmento aire, debe verse complementada con la estación base o segmento tierra, debiéndose considerar las funcionalidades y características de ambos segmentos. Típicamente, el segmento tierra se compone de un ordenador donde se ejecuta un software tipo estación de tierra, mientras que el segmento aire se compone por una aeronave. La comunicación entre ellos se realiza a través de un protocolo de comunicaciones.
 
 \begin{figure}[!ht]
     \begin{subfigure}{0.5\textwidth}
@@ -92,13 +91,14 @@ sistema refleja que el vehículo aéreo autónomo precisa para su funcionamiento
 
 \section{Problema y motivación} \label{section:intro-problema}
 Este trabajo se centra en el diseño e implementación del primer prototipo de un software tipo \emph{estación de tierra} que permita la operación automática remota de un Vehículo Aéreo no Tripulado (UAV, \emph{Unmanned Aerial Vehicles}), a los que me dirigiré comúnmente como \emph{drones} a lo largo de esta memoria. \\
-Esta oportunidad surge de la colaboración entre la empresa madrileña CONYCA S.L. \cite{conyca} y el grupo de investigación de robótica (@RoboticsLabURJC \cite{roboticslab}) de la Universidad Rey Juan Carlos (URJC), con el proyecto \emph{ROSpilot, software para operación y navegación de un UAV}, en la cual he tenido la suerte de ser invitado a colaborar. \\
+Esta oportunidad surge del desarrollo del grupo de investigación de robótica (@RoboticsLabURJC \cite{roboticslab}) de la Universidad Rey Juan Carlos (URJC) y la asociación JdeRobot \cite{jderobot}, con el proyecto \emph{ROSpilot, software para operación y navegación de un UAV}, en la cual he tenido la suerte de ser invitado a colaborar. \\
+%Esta oportunidad surge de la colaboración entre la empresa madrileña CONYCA S.L. \cite{conyca} y el grupo de investigación de robótica (@RoboticsLabURJC \cite{roboticslab}) de la Universidad Rey Juan Carlos (URJC), con el proyecto \emph{ROSpilot, software para operación y navegación de un UAV}, en la cual he tenido la suerte de ser invitado a colaborar. \\
 Profundizando en la estación terrestre requerida, se busca automatizar procesos tediosos relacionados con labores de cartografía y toma de fotografía aérea. En este tipo de misiones es común utilizar drones de ala fija (tipo \emph{Geodrone Mapper} \cite{geodrone}, ver figura \ref{fig:geodrone}), lo cual agranda aún más el desafío propuesto debido a las limitaciones existentes en las operaciones de una aeronave de ala fija. \\
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{geodrone.png}
-    \caption{Geodrone Mapper, propiedad de CONYCA S.L., utilizado en misiones de cartografía y fotografía aérea.}
+    \caption{Geodrone Mapper utilizado en misiones de cartografía y fotografía aérea.}
     \label{fig:geodrone}
 \end{figure}
 
@@ -108,7 +108,7 @@ En las siguientes secciones se describirá más en detalle el problema y como se
 \section{Objetivos} \label{section:intro-objetivos}
 Tras describir el problema a resolver en la sección anterior (Sección \ref{section:intro-problema}), en esta sección se quiere aclarar cuales son los objetivos perseguidos desde el inicio del proyecto. \\
 El objetivo principal es proporcionar una solución software que permita la operación automática remota a drones de ala fija. En concreto, la aplicación desarrollada será denominada como \emph{UAVCommander} y parte del trabajo previo desarrollado por José Antonio Fernández Casillas en su proyecto fin de carrera \emph{Navegación por posición para un avión autónomo con JdeRobot} \cite{pfc-jose}. \\
-En el proyecto acordado con la empresa se describen una serie de funcionalidades o requisitos que debe incluir la aplicación, los cuales se consideran objetivos secundarios:
+En el proyecto se describen una serie de funcionalidades o requisitos que debe incluir la aplicación, los cuales se consideran objetivos secundarios:
 
 \begin{itemize}
     \item \textbf{Caracterización de la aeronave y carga de pago.} El usuario podrá configurar datos operativos de la aeronave y datos de la carga de pago, que consiste en una cámara con la que se tomarán las fotografías para realizar la cartografía.
