@@ -3,20 +3,19 @@
 Durante este capítulo se explican las diferentes herramientas \emph{software} y \emph{hardware} que han servido de ingredientes en la realización de este trabajo. A la hora de proceder a desgranar los diferentes agentes que entran en acción, se realiza previamente una clasificación entre el lado tierra, el lado aire y la comunicación entre estos que se reflejan en las secciones de este capítulo. \\
 
 \section{Lado Tierra} \label{section:infra-tierra}
-El lado tierra se compone por un ordenador donde se ejecuta \emph{UAVCommander}, la aplicación desarrollada. El software se idea como multiplataforma, por lo que el sistema operativo del ordenador puede ser cualquiera de las principales soluciones en el mercado. \\
-Sin embargo, la plataforma utilizada durante el desarrollo y las pruebas ha sido Ubuntu, la distribución de Linux basada en Debian. En concreto, la edición utilizada es la última versión con soporte de largo plazo, \textbf{Ubuntu 18.04.3 LTS (\emph{Bionic Beaver})} \cite{ubuntu}. El motivo de esta elección es debido a que Ubuntu suele ser la primera opción en aplicaciones relacionadas con el software libre y la robótica. \\
-El lenguaje elegido para el desarrollo de la aplicación ha sido Python \cite{python}. El lenguaje creado a principios de 1990 por Guido van Rossum en los Países Bajos es un lenguaje de programación interpretado, interactivo y orientado a objetos. Sus principales ventajas que han motivado su elección para este proyecto son una sintaxis muy clara y su portabilidad. En concreto, la versión utilizada es \textbf{Python v3.6.9}. \\
-Son varias las bibliotecas de Python utilizadas, entre ellas se quiere destacar \textbf{PyQt5} \cite{pyqt}. PyQt5 es un \emph{binding} de la biblioteca gráfica Qt5 \cite{qt} para el lenguaje de programación Python. Qt es un framework multiplataforma escrito en C++ que permite el desarrollo de interfaces gráficas de usuario de forma sencilla. \\
+El lado tierra se compone por un ordenador donde se ejecuta \emph{UAVCommander}, la aplicación desarrollada. El software se idea como multiplataforma, por lo que el sistema operativo del ordenador puede ser cualquiera de las principales soluciones en el mercado. Sin embargo, la plataforma utilizada durante el desarrollo y las pruebas ha sido Ubuntu, la distribución de Linux basada en Debian. En concreto, la edición utilizada es la última versión con soporte de largo plazo, \textbf{Ubuntu 18.04.3 LTS (\emph{Bionic Beaver})} \cite{ubuntu}. El motivo de esta elección es debido a que Ubuntu suele ser la primera opción en aplicaciones relacionadas con el software libre y la robótica. \\
+El lenguaje elegido para el desarrollo de la aplicación ha sido Python \cite{python}. Este lenguaje creado a principios de 1990 por Guido van Rossum en los Países Bajos es un lenguaje de programación interpretado, interactivo y orientado a objetos. Sus principales ventajas, que han motivado su elección para este proyecto, son una sintaxis muy clara y su portabilidad. En concreto, la versión utilizada es \textbf{Python v3.6.9}. \\
+Son varias las bibliotecas de Python utilizadas, entre ellas se quiere destacar \textbf{PyQt5} \cite{pyqt}. PyQt5 es un \emph{binding} de la biblioteca gráfica Qt5 \cite{qt} para el lenguaje de programación Python. Qt es un entorno multiplataforma escrito en C++ que permite el desarrollo de interfaces gráficas de usuario de forma sencilla. \\
 Otra biblioteca relevante es \textbf{PyMavlink} \cite{pymavlink}, una implementación en Python del protocolo de comunicaciones MAVLink, el cual se explicará más adelante. El uso de esta librería facilita el uso del protocolo de comunicaciones, simplificando el uso de comandos y reduciendo el riesgo de cometer errores. \\
 Para el manejo de mapas geo-referenciados se han utilizado diversas librerías. Un mapa geo-referenciado es aquel en el que conocemos o podemos calcular la posición real que representa cada píxel del mismo. Por un lado, se ha utilizado servicios de mapa web (WMS, \emph{Web Map Services}) para obtener las imágenes como \emph{Google Maps Platform} \cite{google-map} u \emph{Open Map Tiles} \cite{open-map} a través de librerías como \emph{urllib} para el manejo de URLs \cite{urlib} o \emph{PIL} (\emph{Python Image Library}) y \emph{Pillow}, para el manejo de imágenes \cite{pil}. \\
 Por otro lado, para la lectura de imágenes locales geo-referenciadas procedentes del Instituto Geográfico Nacional (IGN) \cite{ign} a través del Plan Nacional de Ortofotografía Aérea (PNOA) \cite{pnoa} se ha utilizado la librería \textbf{GDAL} \cite{gdal}. GDAL es una biblioteca que permite leer más de 200 formatos de datos geoespaciales ráster y vectoriales, entre los cuales se encuentran formatos como GeoTIFF o ECW, utilizados por la aplicación. \\
 Otras librerías utilizadas son \emph{math} \cite{math-python}, \emph{numpy} \cite{numpy}, \emph{threading} \cite{threading-python}, \emph{json} \cite{json-python}, \emph{collections} \cite{collection-python}, \emph{datetime} \cite{datetime-python}, \emph{time} \cite{time-python} o \emph{qfi} \cite{qfi-python}. \\
-A la hora de desarrollo se ha utilizado la plataforma GitHub \cite{github} y el entorno de desarrollo PyCharm \cite{pycharm}. GitHub es plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones Git. El código fuente del proyecto se encuentra en un repositorio privado debido a que está ligado a un proyecto de desarrollo con una empresa privada. De todas formas, en el siguiente capítulo se presentarán diferentes fragmentos de código mostrando algún aspecto de la implementación. En cambio, la memoria junto con cierta información sobre el trabajo se aloja en un repositorio publico \cite{repo-tfg}. \\
+A la hora de desarrollo se ha utilizado la plataforma GitHub \cite{github} y el entorno de desarrollo PyCharm \cite{pycharm}. GitHub es plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones Git. % El código fuente del proyecto se encuentra en un repositorio privado debido a que está ligado a un proyecto de desarrollo con una empresa privada. De todas formas, en el siguiente capítulo se presentarán diferentes fragmentos de código mostrando algún aspecto de la implementación. En cambio, la memoria junto con cierta información sobre el trabajo se aloja en un repositorio publico \cite{repo-tfg}. \\
 PyCharm es un entorno de desarrollo integrado (IDE, \emph{Integrated Development Environment}), ampliamente utilizado con Python. Entre sus ventajas destacan su depurador, la refactorización, entre otros aspectos.
 
 
 \section{Lado Aire} \label{section:infra-aire}
-El lado aire se compone por el drone. Se distinguen dos posibilidades, el drone puede ser real o simulado. Ambas posibilidades siguen un bucle de control similar. La Figura \ref{fig:loop-control} trata de representar un bucle estándar de control. \\
+El lado aire es el drone. Se distinguen dos posibilidades, el drone puede ser real o simulado. Ambas posibilidades siguen un bucle de control similar. La Figura \ref{fig:loop-control} representa el bucle estándar de control disponible en los autopilotos más comunes. \\
 
 \begin{figure}[h]
     \centering
@@ -27,7 +26,7 @@ El lado aire se compone por el drone. Se distinguen dos posibilidades, el drone 
 
 El estimador toma una o más entradas de diferentes sensores, las combina y calcula el estado del vehículo. La controladora toma un punto de ajuste y una medición o estado estimado como entradas. Su objetivo es ajustar el valor del estado estimado de modo que coincida con el punto de ajuste. La salida es una corrección para eventualmente alcanzar ese punto de ajuste. Por ejemplo, el controlador de posición toma los puntos de ajuste de posición como entradas, y según la posición estimada calcula la salida que es un punto de ajuste de actitud y empuje que mueve el vehículo hacia la posición deseada. Finalmente, el mezclador toma comandos concretos, como girar a la derecha, y los traduce a comando de motor individuales, al tiempo que garantiza que no se excedan algunos límites. Esta traducción es específica para cada vehículo y depende de varios factores, como la disposición del motor con respecto al centro de gravedad o la inercia rotacional del vehículo. \\
 
-El uso de drone real se ha limitado a las últimas fases de desarrollo, que muy frecuentemente se ha visto sustituido por un drone simulado (ver Fig. \ref{fig:drone-sim}). Sobre el sistema propuesto en la sección anterior (Ubuntu 18.04.3) se ejecuta una simulación en software (\textbf{SITL}, \emph{Software-In-The-Loop}) de una aeronave. El SITL permite enviar y recibir comandos a una controladora sin necesidad de tener el equipo real y evitando la pérdida de la aeronave en caso de error del programa. \\
+El uso de drone real se ha limitado a las últimas fases de desarrollo de este proyecto, que muy frecuentemente se ha visto sustituido por un drone simulado (ver Fig. \ref{fig:drone-sim}). Sobre el sistema propuesto en la sección anterior (Ubuntu 18.04.3) se ejecuta una simulación en software (\textbf{SITL}, \emph{Software-In-The-Loop}) de una aeronave. El SITL permite enviar y recibir comandos a una controladora sin necesidad de tener el equipo real y evitando la pérdida de la aeronave en caso de error del programa. \\
 
 \begin{figure}[h]
     \centering
@@ -47,32 +46,33 @@ El firmware utilizado como controladora es \textbf{PX4} \cite{px4}, cuyo esquema
 
 Además, la simulación se puede conectar con un simulador para hacer más completa la experiencia y mostrar el vuelo en un entorno de pruebas con elementos del mundo real. Entre los distintos simuladores se ha elegido Gazebo \cite{gazebo}. Este simulador de código abierto es por excelencia el más utilizado en aplicaciones de robótica y visión artificial. Debido a su gestión abierta permite la integración de múltiples vehículos, mundos, sensores, físicas, etc. La versión utilizada durante el proyecto es \textbf{Gazebo9}. \\
 
-La aeronave real puede ser de diversa índole, como ya se ha visto en el capítulo anterior. A lo largo de este proyecto se prevé utilizar las siguientes aeronaves:
+La aeronave real puede ser de diversa índole, como ya se ha visto en el capítulo anterior. A lo largo de este proyecto se prevé utilizar:
 
 \begin{itemize}
     \item \textbf{3DR Solo Drone:} Cuadricóptero fabricado por 3DR Robotics \cite{3dr} (Fig. \ref{fig:3dr}). Posee una controladora con firmware Ardupilot \cite{ardupilot}, una de las soluciones más usada en el mercado. Una de las principales ventajas que decidieron el uso de este drone en las primeras fases de vuelo frente a otros equipos del laboratorio es la existencia de una emisora (o mando de control), el cual permite controlar la aeronave ante cualquier problema que no este previsto en el software.
-    \item \textbf{Geodrone training:} Aeronave de ala fija (Fig. \ref{fig:geodrone-training}). Posee una controladora con firmware Ardupilot \cite{ardupilot}. Al igual que el anterior, posee una emisora que aporta robustez y permite actuar ante cualquier imprevisto.
+    %\item \textbf{Geodrone training:} Aeronave de ala fija (Fig. \ref{fig:geodrone-training}). Posee una controladora con firmware Ardupilot \cite{ardupilot}. Al igual que el anterior, posee una emisora que aporta robustez y permite actuar ante cualquier imprevisto.
     %\item \textbf{PX4:} A completar.
 \end{itemize}
 
 \begin{figure}[!ht]
-    \begin{subfigure}{0.5\textwidth}
-        \includegraphics[height=6cm, width=0.9\linewidth]{3dr.jpg}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\linewidth]{3dr.jpg}
         \caption{3DR Solo Drone.}
         \label{fig:3dr}
     \end{subfigure}
-    \begin{subfigure}{0.5\textwidth}
-        \includegraphics[height=6cm, width=0.9\linewidth]{geodrone-training.png}
-        \caption{Geodrone Training.}
-        \label{fig:geodrone-training}
-    \end{subfigure}
+    %\begin{subfigure}{0.5\textwidth}
+    %    \includegraphics[height=6cm, width=0.9\linewidth]{geodrone-training.png}
+    %    \caption{Geodrone Training.}
+    %    \label{fig:geodrone-training}
+    %\end{subfigure}
      
     \caption{Aeronaves utilizadas durante el proyecto.}
     \label{fig:drone-real}
 \end{figure}
 
 \section{Protocolo de comunicaciones} \label{section:infra-protoc}
-Tal como se ha adelantado en las secciones anteriores, el protocolo de comunicaciones utilizado es MAVLink \cite{mavlink}. MAVLink son las siglas de \emph{Micro Air Vehicle Link}, un protocolo de comunicaciones muy ligero para el intercambio de mensajes con un drone y sus componentes a bordo. La versión utilizada es \textbf{MAVLink v2}. \\
+Tal como se ha adelantado, el protocolo de comunicaciones utilizado es MAVLink \cite{mavlink}. MAVLink son las siglas de \emph{Micro Air Vehicle Link}, un protocolo de comunicaciones muy ligero para el intercambio de mensajes con un drone y sus componentes a bordo. La versión utilizada es \textbf{MAVLink v2}. \\
 Los extremos de la comunicación se han explicado en las secciones anteriores, siendo este protocolo el puente de comunicación entre el lado tierra y el lado aire. Es considerado como el protocolo estándar de comunicaciones en robótica aérea y las principales soluciones comerciales lo utilizan. Existen diferentes tipos de mensajes, comandos (de navegación, de \emph{perform}, etc.), enumerados y microservicios. \\
 Los mensajes son el objeto más pequeño de intercambio de información del protocolo. Son muchos los mensajes existentes y de diversa utilidad. Los diferentes mensajes de MAVLink se pueden observar en su documentación \cite{mavlink-msg}. Un ejemplo de un mensaje MAVLink se puede observar en el Código \ref{listing:msg-exp}.
 
@@ -82,7 +82,7 @@ Los mensajes son el objeto más pequeño de intercambio de información del prot
 \label{listing:msg-exp}
 \end{listing}
 
-Existen un tipo especial de mensajes que encapsulan a los comandos, órdenes a ejecutar por la aeronave. Los comandos pueden ser de tres tipos, de navegación, de acción y de condición. Los comandos utilizados en el protocolo se pueden comprobar también en la documentación de MAVLink \cite{mavlink-msg}. Un ejemplo de comando MAVLink se puede observar en el Código \ref{listing:cmd-exp}.
+Existe un tipo especial de mensajes que encapsulan a los comandos, órdenes a ejecutar por la aeronave. Los comandos pueden ser de tres tipos: de navegación, de acción y de condición. Los comandos utilizados en el protocolo se pueden comprobar también en la documentación de MAVLink \cite{mavlink-msg}. Un ejemplo de comando MAVLink se puede observar en el Código \ref{listing:cmd-exp}.
 
 \begin{listing}[h]
 \input{code/cmd-exp}

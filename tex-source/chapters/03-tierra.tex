@@ -1,7 +1,10 @@
 \documentclass[../main.tex]{subfiles}
 
-Este capítulo aborda el diseño e implementación del software. En primer lugar se explicará el esquema seguido junto a las motivaciones de cada decisión de diseño tomada. Se presentarán los diferentes bloques en los que se organiza el código, que a su vez se desarrollarán en las secciones sucesivas. \\
-Previo paso a las secciones del capítulo, se presentan en la Figura \ref{fig:esquema-general} un esquema general que representa la arquitectura del sistema. El esquema muestra tanto el hardware como el software que integra el sistema, y da una visón global inicial del funcionamiento de la aplicación dentro del sistema.
+Este capítulo aborda el diseño e implementación del software. En primer lugar se explica el esquema seguido junto a las motivaciones de cada decisión de diseño tomada. Se presentarán los diferentes bloques en los que se organiza el código, que a su vez se explicarán en las secciones sucesivas. \\
+
+
+\section{Diseño} \label{section:dis-dis}
+La aplicación ha sido diseñada desde el primer momento teniendo en cuenta los objetivos iniciales y requisitos del proyecto. En la Figura \ref{fig:esquema-general} se presenta un esquema general que representa la arquitectura del sistema. El esquema muestra tanto el hardware como el software que integra el sistema, y da una visón global inicial del funcionamiento de la aplicación dentro del sistema completo. \\
 
 \begin{figure}[h]
     \centering
@@ -10,19 +13,17 @@ Previo paso a las secciones del capítulo, se presentan en la Figura \ref{fig:es
     \label{fig:esquema-general}
 \end{figure}
 
-\section{Diseño} \label{section:dis-dis}
-La aplicación ha sido diseñada desde el primer momento teniendo en cuenta los objetivos iniciales y requisitos del proyecto. A lo largo de esta sección, se harán múltiples referencias a los objetivos introducidos durante la Sección \ref{section:intro-objetivos}. \\
 En la aplicación se integran múltiples funciones como la configuración en función de la aeronave, la programación de misiones, el seguimiento y cumplimiento de las mismas y la visualización de los sensores a bordo, entre otras funciones. \\
-Existen diferentes formas de agrupar o segmentar la aplicación para un mejor análisis del código y una mejor comprensión del diseño realizado. En primer lugar, se presenta un diseño que agrupa la aplicación en bloques o módulos con funciones bien distinguidas entre sí. Se distinguen los siguientes grandes bloques:
+Existen diferentes formas de agrupar o segmentar la aplicación para un mejor análisis del código y una mejor comprensión del diseño realizado. En primer lugar, se presenta un diseño que agrupa la aplicación en bloques o módulos con funciones bien distintas entre sí. Se distinguen los siguientes grandes bloques:
 
 \begin{itemize}
     \item \textbf{Interfaz gráfica:} Está compuesto por una serie de ventanas, \emph{widgets} y herramientas que dan soporte al resto de bloques y que permiten al usuario interactuar con la aplicación. La Sección \ref{section:dis-gui} muestra el diseño e implementación seguida y explica más en detalle el bloque.
-    \item \textbf{Mapas:} Se compone de una serie de clases que permiten la visualización e interacción con los mapas. Utiliza un sistema de mapeado basado en teselas que aligera la navegación a través del mapa. Dispone de diferentes fuentes cartográficas que permiten visualizar diferentes mapas sobre la misma herramienta. Durante la Sección \ref{section:dis-map} se detalla en profundidad aspectos relacionados con el diseño e implementación de este bloque. 
-    \item \textbf{Misiones:} Este bloque engloba las clases que intervienen en la creación de misiones. Se distinguen dos tipos de misión: por polilínea y por patrón. Más detalles y cuestiones relacionadas con el diseño e implementación se aportan en la Sección \ref{section:dis-mision}.
-    \item \textbf{MAVLink Driver:} Este último bloque contiene toda vía de comunicación con la aeronave. Es el encargado de traducir las acciones lanzadas a través de la aplicación a mensajes MAVLink que la aeronave comprende. Este bloque es una evolución del código desarrollado por J.A. Fernández durante su proyecto fin de carrera \cite{pfc-jose}. Se aportan más detalles en la Sección \ref{section:dis-driver} sobre el diseño e implementación del \emph{driver}.
+    \item \textbf{Mapas:} Se compone de una serie de clases que permiten la visualización e interacción con los mapas. Utiliza un sistema de mapeado basado en teselas que aligera la navegación a través del mapa. Dispone de diferentes fuentes cartográficas que permiten visualizar diferentes mapas sobre la misma herramienta. Durante la Sección \ref{section:dis-map} se detallan en profundidad aspectos relacionados con la implementación de este bloque. 
+    \item \textbf{Misiones:} Este bloque engloba las clases que intervienen en la creación de misiones. Se distinguen dos tipos de misión: por polilínea y por patrón. Más detalles y cuestiones relacionadas con la implementación se aportan en la Sección \ref{section:dis-mision}.
+    \item \textbf{MAVLink Driver:} Este último bloque contiene toda vía de comunicación con la aeronave. Es el encargado de traducir las acciones lanzadas a través de la aplicación a mensajes MAVLink que la aeronave comprende. Este bloque es una evolución del código desarrollado por J.A. Fernández durante su proyecto fin de carrera \cite{pfc-jose}. Se aportan más detalles en la Sección \ref{section:dis-driver} sobre la implementación del \emph{driver}.
 \end{itemize}
 
-En la Figura \ref{fig:esquema-bloques} se observa como configuran la aplicación los diferentes bloques presentados. En la parte superior de la figura se encuentra el \emph{front-end} de la aplicación, que está compuesto en su totalidad por la interfaz de usuario (GUI, \emph{Graphical User Interface}). En una segunda capa se encuentra la parte lógica de la aplicación que se divide en distintos bloques, principalmente compuestos por el sistema de mapeado y el creador de misiones. En una tercera y última capa se encuentran una serie de servicios que aportan comunicación a la aplicación con el exterior. Se destacan dos servicios principales, los mapas web y el \emph{driver} de MAVLink. Estas dos capas internas conforman el \emph{back-end} de la aplicación. \\
+En la Figura \ref{fig:esquema-bloques} se observa cómo conforman la aplicación los diferentes bloques presentados. En la parte superior de la figura se encuentra el \emph{front-end} de la aplicación, que está compuesto en su totalidad por la interfaz de usuario (GUI, \emph{Graphical User Interface}). En una segunda capa se encuentra la parte lógica de la aplicación que se divide en distintos bloques, principalmente el sistema de mapeado y el creador de misiones. En una tercera y última capa se encuentran una serie de servicios que aportan comunicación a la aplicación con el exterior. Se destacan dos servicios principales, los mapas web y el \emph{driver} de MAVLink. Estas dos capas internas conforman el \emph{back-end} de la aplicación. \\
 
 \begin{figure}[ht]
     \centering
@@ -31,9 +32,9 @@ En la Figura \ref{fig:esquema-bloques} se observa como configuran la aplicación
     \label{fig:esquema-bloques}
 \end{figure}
 
-Esta estructura en capas que se presenta ha permitido dividir el problema inicial en subproblemas, para afrontarlos individualmente de una forma más sencilla. Además esta estructura al ser tan gráfica permite entender los diferentes módulos y su función dentro de la aplicación.
+Esta estructura en capas que se presenta ha permitido dividir el problema inicial en subproblemas, para afrontarlos individualmente de una forma más sencilla. Además, esta estructura al ser tan gráfica permite entender los diferentes módulos y su función dentro de la aplicación.
 
-Por otro lado, desde un punto de vista de ejecución la aplicación contiene cuatro hilos. Cada uno de estos hilo realiza tareas diferentes en uno o en varios de los bloques ya explicados. Previo paso a la descripción de los hilos de ejecución, es necesario introducir las interfaces utilizadas en la aplicación. Son cuatro, \emph{Pose3D}, \emph{NavData}, \emph{mission} y \emph{extra}, todas reciclajes de las antiguas interfaces de JdeRobot con ICE \cite{pfc-jose}. \\
+Por otro lado, desde un punto de vista de ejecución, la aplicación contiene cuatro hilos. Cada uno de estos hilo realiza tareas diferentes en uno o en varios de los bloques ya explicados. Previo paso a la descripción de los hilos de ejecución, es necesario introducir las interfaces utilizadas en la aplicación. Son cuatro, \emph{Pose3D}, \emph{NavData}, \emph{mission} y \emph{extra}, todas reciclajes de las antiguas interfaces de JdeRobot con ICE \cite{pfc-jose}. \\
 
 \begin{itemize}
     \item \textbf{Pose3D:} Contiene los datos de posición en el espacio de la aeronave y su orientación. La orientación en el espacio es expresada mediante el uso de cuaterniones.
@@ -42,7 +43,7 @@ Por otro lado, desde un punto de vista de ejecución la aplicación contiene cua
     \item \textbf{extra:} Permite distinguir los puntos y asociar acciones de despegue y aterrizaje a puntos concretos.
 \end{itemize}
 
-A continuación se presentan estos hilos de ejecución con una breve descripción de los mismos: 
+A continuación se presentan los hilos de ejecución de la aplicación:
 
 \begin{itemize}
     \item \textbf{Hilo principal:} Tiene asociado las principales acciones de la aplicación. Las diferentes ventanas y herramientas surgen de él, al igual que el sistema de mapeado y el creador de misiones.
@@ -55,7 +56,7 @@ Sobre los hilos de ejecución es importante mencionar que no todos se lanzan al 
 
 % diseño de caja negra, inputs and outputs
 
-Por último, y previo paso a la vista en detalle de cada bloque, se presenta una figura (Fig. \ref{fig:esquema-clases}) con la estructura general de clases que contiene la aplicación. Esta figura contiene toda la información hasta ahora mencionada sobre el diseño de la aplicación: bloques, hilos de ejecución e interfaces. Esta figura supone una vista en conjunto cuya intención es proveer al lector de una visión global detallada sobre el software previo a ese análisis pormenorizado sobre cada uno de los bloques.
+Por último, y previo paso a la vista en detalle de cada bloque, se presenta en la Figura \ref{fig:esquema-clases} la estructura general de clases que contiene la aplicación. Esta figura contiene toda la información hasta ahora mencionada sobre el diseño de la aplicación: bloques, hilos de ejecución e interfaces. Esta vista en conjunto provee al lector de una visión global detallada sobre el software previo a ese análisis pormenorizado sobre cada uno de los bloques.
 
 \begin{figure}[h]
     \centering
@@ -96,7 +97,7 @@ Para cada una de las pestañas se crea una clase nueva a través de una herencia
 
 \subsection{Ventanas secundarias}
 
-Entre las ventanas secundarias anteriormente mencionadas se encuentran la ventana de configuración, la ventana de carga de mapa local, la ventana de sensores y la ventana de puntos de paso en la misión. En la Figura \ref{fig:vent-sec} se pueden observar alguna de estas ventanas secundarias.
+Entre las ventanas secundarias anteriormente mencionadas se encuentran la ventana de configuración, la ventana de carga de mapa local, la ventana de sensores y la ventana de puntos de paso en la misión. En la Figura \ref{fig:vent-sec} se puede observar alguna de estas ventanas secundarias.
 
 \begin{figure}[h]
     \centering
@@ -108,7 +109,7 @@ Entre las ventanas secundarias anteriormente mencionadas se encuentran la ventan
 En la ventana de configuración se pueden observar algunos de los datos persistentes entre  ejecuciones. El almacenamiento persistente y la recuperación de la configuración previa se consigue gracias a la clase \emph{QSettings} que proporciona Qt5. Además, en esta ventana se puede observar también la posibilidad de cambiar el idioma de la interfaz durante la ejecución. Esta traducción dinámica es posible gracias a la clase \emph{QTranslator} de Qt5 que permite cargar ficheros de traducción previamente generados y realizar las traducciones. Actualmente la aplicación se encuentra disponible en castellano e inglés.
 
 \section{Sistema de Mapeado} \label{section:dis-map}
-El bloque de mapas permite la visualización e interacción a través de la interfaz gráfica de la superficie terrestre. Son muchos los actores que entran en juego y que permite su funcionamiento. La principal herramienta sobre la que trabajan el resto de herramientas es una \emph{QGraphicsScene} (escena). Esta clase proporciona una superficie para desplegar y administrar una serie de elementos gráficos 2D. \\
+El bloque de mapas permite la visualización e interacción a través de la interfaz gráfica de la superficie terrestre. Son muchos los actores que entran en juego y que permiten su funcionamiento. La principal herramienta sobre la que trabajan el resto de herramientas es una \emph{QGraphicsScene} (escena). Esta clase proporciona una superficie para desplegar y administrar una serie de elementos gráficos 2D. \\
 Entre las diferentes acciones de las que se encarga el sistema se distinguen la visualización, la obtención de la imagen, la conversión de coordenadas y el manejo de las interacciones del usuario. 
 
 \subsection{Visualización del mapa}
@@ -122,7 +123,8 @@ Para dar soporte a la visualización del mapa a través de la interfaz gráfica 
 \end{figure}
 
 Por otro lado, con el objetivo de agilizar la visualización y la navegación a través del mapa se presenta un mapa en mosaico, compuesto por un número fijo de teselas o imágenes. Esta estructura en mosaico se puede observar en la Figura \ref{fig:esq-teselas}.
-Así pues, se introduce la primera herramienta bajo la escena, las teselas. Las teselas constituyen un grupo de elementos gráficos 2D que son gobernados bajo las mismas reglas. Estos elementos gráficos son en su totalidad imágenes con una posición asociada que permite la construcción del mosaico. En esta primer versión del software las teselas utilizadas son nueve, aunque se está trabajando para que el número utilizado sea variable permitiendo así modificar el tamaño de la escena y dar más versatilidad al sistema de mapeado. \\
+Así pues, se introduce la primera herramienta bajo la escena, las teselas. Las teselas constituyen un grupo de elementos gráficos 2D que son gobernados bajo las mismas reglas. Estos elementos gráficos son en su totalidad imágenes con una posición asociada que permite la construcción del mosaico. En esta primera versión del sistema de mapas, las teselas utilizadas son nueve.
+% En esta primer versión del software las teselas utilizadas son nueve, aunque se está trabajando para que el número utilizado sea variable permitiendo así modificar el tamaño de la escena y dar más versatilidad al sistema de mapeado. \\
 
 \begin{figure}[h]
     \centering
@@ -168,7 +170,7 @@ En la Figura \ref{fig:teselas-alternat} se pueden comparar las tres opciones con
 
 La obtención de la imagen depende del tipo de mapa a visualizar. En la Figura \ref{fig:secuencia-mapas} se representa la secuencia de llamadas necesaria para obtener obtener una escena. \\
 
-De la secuencia de llamadas se puede deducir diferentes aspectos relevantes de la obtención de mapas. En primer lugar, la aplicación utiliza una caché para reducir la latencia y agilizar así la obtención del mosaico. Esto es debido a que los servicios WMS o la lectura de grandes ficheros geo-referenciados son procesos lentos y pesados. \\
+De la secuencia de llamadas se pueden deducir diferentes aspectos relevantes de la obtención de mapas. En primer lugar, la aplicación utiliza una caché para reducir la latencia y agilizar así la obtención del mosaico. Esto es debido a que los servicios WMS o la lectura de grandes ficheros geo-referenciados son procesos lentos y pesados. \\
 También se puede observar que los primeros pasos para la obtención de las teselas son comunes, y solo en el último paso difieren los caminos según el \emph{source} (origen) introducido como parámetro. Además, la función \emph{get-scene()} llamará a \emph{get-pixmap()} tantas veces como teselas posea la escena. \\
 Por último, para obtener una escena concreta es necesario conocer las coordenadas (\emph{x, y, z}), el origen (\emph{source}) y el desplazamiento del centro (\emph{cx, cy}). Las diferentes coordenadas utilizadas se explicarán en la siguiente subsección.
 
@@ -180,7 +182,7 @@ Por último, para obtener una escena concreta es necesario conocer las coordenad
 \end{figure}
 
 \subsection{Conversión de coordenadas}
-La conversión de coordenadas de latitud y longitud a píxeles en la escena es un proceso complejo e inexacto. El simple posicionamiento sobre el globo terrestre es una aproximación más o menos exacto según el datum utilizado. El geoide o el elipsoide seleccionado trata de aproximarse a la forma real del globo terráqueo o a una zona de la superficie de la Tierra. Desde 1984 el geoide utilizado de forma mundial es el WGS84. \\ 
+La conversión de coordenadas de latitud y longitud a píxeles en la escena es un proceso complejo e inexacto. El simple posicionamiento sobre el globo terrestre es una aproximación más o menos exacta según el datum utilizado. El geoide o el elipsoide seleccionado trata de aproximarse a la forma real del globo terráqueo o a una zona de la superficie de la Tierra. Desde 1984 el geoide utilizado de forma mundial es el WGS84. \\ 
 En segundo lugar, la conversión de una esfera (o algo que se asemeja a una esfera) a un plano conlleva también otro error asociado. La proyección más utilizada mundialmente es la proyección de Mercator. \\
 El siguiente paso supone la digitalización de la proyección. En función del tamaño y resolución del mismo, se asocia un nivel de zoom. Para un zoom igual a cero, la imagen tiene normalmente 256x256 píxeles, el siguiente nivel tiene 512x512 píxeles, y así sucesivamente. A este esquema de zooms se le conoce como los diferentes niveles de una pirámide. \\
 Por último, cada nivel de la pirámide se divide en teselas de tamaño normalmente igual a 256x256 píxeles. De esta forma, para un zoom igual a uno habría cuatro diferentes teselas. Así pues, en la cima de la pirámide habría una tesela, en el siguiente nivel 4 teselas, 16 en el siguiente, etc. A cada una de estas teselas se le asocia un coordenada x y otra y para posicionarla sobre el mosaico. \\
@@ -211,13 +213,13 @@ Por otro lado, el la línea 20 se detectan los eventos relacionados con la rueda
 Quedan por presentar dos herramientas más de la escena, una relacionada con la creación de misiones y otra con la representación del drone sobre la escena. Ambas serán explicadas en las siguientes secciones.
 
 \section{Creador de Misiones} \label{section:dis-mision}
-El creador de misiones permite, como su propio nombre indica, la creación y el envío de misiones a la aeronave a través del driver de MAVLink. Está íntimamente ligado a la escena, pues las misiones tienen un componente gráfico relevante que se representa sobre la escena.\\
+El creador de misiones permite, como su propio nombre indica, la creación y el envío de misiones de navegación y cartografía a la aeronave a través del driver de MAVLink. Está íntimamente ligado a la escena, pues las misiones tienen un componente gráfico relevante que se representa sobre la escena.\\
 Una misión se compone por los datos de configuración de la aeronave y la carga de pago y por una sucesión de puntos de paso. Ambos datos se pueden introducir a través de las dos primeras pestañas de la aplicación, \emph{Setup} y \emph{Mission}. Como es lógico pensar, los datos de configuración no dependen de la escena, mientras que la misión en sí misma (los puntos de paso) depende de la escena al tener elementos gráficos que representar. \\
 Es importante destacar que ambas informaciones se pueden guardar en diferentes archivos de forma persistente en el disco. De la misma forma, estos archivos se pueden cargar en memoria. El formato seguido para la creación de estos ficheros de configuración y de misión es un formato plano de texto \cite{formato}. \\
 
 \subsection{Tipos de misión}
 Existen dos tipos de misiones, las misiones polilínea y las misiones de patrón. Las misiones polilínea se componen por una sucesión de puntos de paso y se crean introduciendo los diferentes puntos por orden. Es el tipo de misión más sencillo. Existen tres tipos de puntos, despegue, de paso o aterrizaje. Para introducir estos puntos existen dos posibilidades, bien pinchando sobre la escena directamente o introduciendo a mano una latitud y longitud deseada. En ambos casos es necesario introducir a mano la altura de vuelo deseada. En la Figura \ref{fig:mision-pol} se puede observar un ejemplo de una misión polilínea ya creada. \\
-En cambio, las misión por patrón son más complejas. Se generan introduciendo los vértices de un polígono cerrado. Al igual que con la misión polilínea estos vértices pueden ser introducidos pinchando sobre el mapa o introduciendo la latitud y longitud del punto. El polígono puede ser irregular y convexo, la única restricción es que sea un polígono cerrado. Una vez creado el polígono se genera un algoritmo de barrido que recorre todo la superficie abarcada mediante una sucesión de puntos de paso. La altura introducida debe ser igual para todos los puntos de paso y se selecciona al introducir los vértices. En la Figura \ref{fig:mision-pat} se puede observar un ejemplo de una misión de patrón ya creada. Además, en el Código \ref{listing:alg-barrido} se muestra un fragmento del algoritmo de barrido creado para recorrer un superficie delimitada por una lista de vértices.
+En cambio, las misiones por patrón son más complejas. Se generan introduciendo los vértices de un polígono cerrado. Al igual que con la misión polilínea estos vértices pueden ser introducidos pinchando sobre el mapa o introduciendo la latitud y longitud del punto. El polígono puede ser irregular y convexo, la única restricción es que sea un polígono cerrado. Una vez creado el polígono se genera automáticamente un algoritmo de barrido que recorre todo la superficie abarcada mediante una sucesión de puntos de paso. La altura introducida debe ser igual para todos los puntos de paso y se selecciona al introducir los vértices. En la Figura \ref{fig:mision-pat} se puede observar un ejemplo de una misión de patrón ya creada. Además, en el Código \ref{listing:alg-barrido} se muestra un fragmento del algoritmo de barrido creado para recorrer un superficie delimitada por una lista de vértices.
 
 \begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
@@ -235,11 +237,11 @@ En cambio, las misión por patrón son más complejas. Se generan introduciendo 
     \label{fig:tipos-mision}
 \end{figure}
 
-Los puntos de aterrizaje y despegue son algo diferentes a los punto de paso convencionales. Con respecto al despegue, la altura asociado a ese punto se corresponde con una altura de seguridad, la cual se debe haber sobrepasado para poder iniciar la misión y avanzar hacia el primer punto de paso. La senda de despegue se configura en línea recta según la orientación en el despegue. Para multicópteros esta senda es completamente vertical, mientras que para las aeronaves de ala fija se utilizará el valor asociado a la inclinación de despegue. \\
-Por otro lado, el aterrizaje funciona también similar. La senda de aterrizaje se creará a través de dos puntos. El primero de ellos será el último punto de paso introducido y fijará la altura a la que se inicia la aproximación. El segundo punto fija el punto de aterrizaje y la orientación de la aproximación. Para multicópteros esta aproximación será vertical, mientras que para alas fija se utilizará el valor de la inclinación de aterrizaje introducida durante la caracterización de la aeronave. \\
+Los puntos de aterrizaje y despegue son algo diferentes a los puntos de paso convencionales. Con respecto al despegue, la altura asociada a ese punto se corresponde con una altura de seguridad, la cual se debe haber sobrepasado para poder iniciar la misión y avanzar hacia el primer punto de paso. La senda de despegue se configura en línea recta según la orientación en el despegue. Para multicópteros esta senda es completamente vertical, mientras que para las aeronaves de ala fija se utilizará el valor asociado a la inclinación de despegue. \\
+Por otro lado, el aterrizaje funciona de forma similar. La senda de aterrizaje se creará a través de dos puntos. El primero de ellos será el último punto de paso introducido y fijará la altura a la que se inicia la aproximación. El segundo punto fija el punto de aterrizaje y la orientación de la aproximación. Para multicópteros esta aproximación será vertical, mientras que para alas fija se utilizará el valor de la inclinación de aterrizaje introducida durante la caracterización de la aeronave. \\
 
-La altura seleccionada para los puntos de paso o el barrido puede ser global o relativa. El término \emph{global} apunta a una altura de referencia constante (global) según el punto de despegue para toda la misión. En cambio, el término \emph{relativo} utiliza una referencia variable en función de la altitud del terreno en cada punto. \\
-En las Figuras \ref{fig:tipos-mision} se pueden observar dos ventanas secundarias que muestran la lista de puntos de paso o vértices introducidos. Es a través de estas ventanas como se pueden añadir tanto los puntos de paso como los vértices a partir de su latitud y longitud. En una futura versión se planea introducir la posibilidad de modificar los puntos desde estas ventanas, aportando más versatilidad a esta herramienta. \\
+La altura seleccionada para los puntos de paso o el barrido puede ser global o relativa. El término \emph{global} apunta a una altura de referencia constante (absoluta, sobre el nivel del mar) según el punto de despegue para toda la misión. En cambio, el término \emph{relativo} utiliza una referencia variable en función de la altitud del terreno en cada punto. \\
+En la Figura \ref{fig:tipos-mision} se pueden observar dos ventanas secundarias que muestran la lista de puntos de paso o vértices introducidos. Es a través de estas ventanas como se pueden añadir tanto los puntos de paso como los vértices a partir de su latitud y longitud. En una futura versión se planea introducir la posibilidad de modificar los puntos desde estas ventanas, aportando más versatilidad a esta herramienta. \\
 
 \begin{longlisting}
 \input{code/alg-barrido}
@@ -252,7 +254,7 @@ En las Figuras \ref{fig:tipos-mision} se pueden observar dos ventanas secundaria
 Cierta parte de este bloque se integra como una herramienta dentro de la escena, pues toda la representación gráfica mediante puntos, líneas o polígonos cobra cierta relevancia a la hora de visualizar la misión que se está creando. Así pues, la cuarta herramienta de la escena se ha ido explicando a lo largo de esta sección.
 
 \subsection{Captura de imágenes}
-El uso principal del software es cartográfico, para ello, es necesario la toma de fotografías por parte de la aplicación. Esta funcionalidad solo estaría disponible para la misiones por patrón, que están ideadas para el escaneo de superficies. Este cálculo de posiciones de captura de imagen se realiza de forma automática a partir de los datos del sensor y la altura de vuelo. Estas posiciones son las calculadas por el procedimiento \emph{calc\_intermediates(init, end)} en la líneas 6 y 26 del Código \ref{listing:alg-barrido}. \\
+El uso principal del software es cartográfico, para ello, es necesario la toma de fotografías por parte de la aplicación. Esta funcionalidad solo estaría disponible para la misiones por patrón, que están ideadas para el escaneo de superficies. Este cálculo de posiciones de captura de imagen se realiza de forma automática a partir de los datos del sensor (cámara) y la altura de vuelo. Estas posiciones son las calculadas por el procedimiento \emph{calc\_intermediates(init, end)} en la líneas 6 y 26 del Código \ref{listing:alg-barrido}. \\
 El procedimiento anterior utiliza constantes de la misión para calcular la posición de captura. Estas constantes de misión son la distancia entre fotografías consecutivas ($fotobase$, Ec. \ref{eq:fotobase}) y entre pasadas de la aeronave ($espaciamiento$, Ec. \ref{eq:espaciamiento}), y dependen de los datos del sensor y la altura de vuelo \cite{otero2010fotogrametria}. Las ecuaciones que comandan estos valores son:
 
 \begin{equation}
@@ -269,8 +271,8 @@ Siendo $sh$ y $sw$ el alto y ancho del sensor, $p$ y $q$ el solapamiento longitu
 La comunicación MAVLink para la toma de fotografías se explicará en la siguiente sección junto con las principales comunicaciones de la aplicación.
 
 \section{MAVLink Driver} \label{section:dis-driver}
-El último bloque integra diferentes funciones que dependen directamente de la comunicación con la aeronave. El driver de comunicaciones es bidireccional, y sirve tanto para recibir como para enviar información a la aeronave. Una vez más, se quiere resaltar que este bloque parte del trabajo inicial de J.A. Fernández en su proyecto fin de carrera \cite{pfc-jose}. \\
-Las diferentes funciones se pueden clasificar de la siguiente forma:
+El último bloque de la aplicación desarrollada integra diferentes funciones que dependen directamente de la comunicación con la aeronave. El driver de comunicaciones es bidireccional, y sirve tanto para recibir como para enviar información a la aeronave. Una vez más, se quiere resaltar que este bloque parte del trabajo inicial de J.A. Fernández en su proyecto fin de carrera \cite{pfc-jose}. \\
+Sus diferentes funciones se pueden clasificar de la siguiente forma:
 
 \begin{itemize}
     \item Establecimiento de conexión.
@@ -283,7 +285,7 @@ Las diferentes funciones se pueden clasificar de la siguiente forma:
 Las diferentes funcionalidades se analizarán una por una en las siguientes subsecciones.
 
 \subsection{Establecimiento de conexión}
-La conexión con la aeronave se establece gracias a la librería pyMavlink, que como se ha explicado durante el Capítulo \ref{chapter:infra}, propone una implementación del protocolo de comunicaciones MAVLink facilitando acciones como esta. \\
+La conexión con la aeronave se establece gracias a la librería pyMavlink, que como se ha explicado, propone una implementación del protocolo de comunicaciones MAVLink facilitando acciones como esta. \\
 En el fragmento de código (Cód. \ref{listing:conexion}) se pueden observar los dos procedimientos principales. Cabe destacar que el establecimiento no solo implica atarse a una dupla IP-puerto, sino que también incluye la creación de un \emph{handler} que se encarga de recibir los mensajes de la aeronave.
 
 \vspace{2mm}
@@ -401,7 +403,7 @@ Estos mensajes encapsulan otros mensajes de tipo \emph{MAV\_CMD} o comandos. Alg
 \label{table:comp-param}
 \end{table}
 
-Entre los comandos que se pueden encapsular en los mensajes de misión destaca el usado para la toma de fotografías, \emph{MAV\_CMD\_DO\_SET\_CAM\_TRIGG\_DIST}. En la Tabla \ref{table:cmd-foto} se muestran los parámetros asociados a este comando. Este comando permite establecer una distancia de disparo donde la cámara captura cada vez que se supera esta distancia. El funcionamiento pues, es sencillo. Al inicio de la pasado se manda el mensaje de misión con la \emph{distancia} entre fotografías deseada, mientras que al final de la pasada se manda una \emph{distancia} nula para detener la captura de fotos. \\
+Entre los comandos que se pueden encapsular en los mensajes de misión destaca el usado para la toma de fotografías, \emph{MAV\_CMD\_DO\_SET\_CAM\_TRIGG\_DIST}. En la Tabla \ref{table:cmd-foto} se muestran los parámetros asociados a este comando. Este comando permite establecer una distancia de disparo donde la cámara captura cada vez que se supera esta distancia. El funcionamiento pues, es sencillo. Al inicio de la pasada se manda el mensaje de misión con la \emph{distancia} entre fotografías deseada, mientras que al final de la pasada se manda una \emph{distancia} nula para detener la captura de fotos. \\
 
 \begin{table}[H]
     \centering
@@ -428,7 +430,7 @@ Entre los comandos que se pueden encapsular en los mensajes de misión destaca e
 \label{table:cmd-foto}
 \end{table}
 
-Para la implementación del protocolo se parte de un pseudo-código propuesto por la Universidad de Colorado Boulder \cite{implem-prot}. Este boceto de implementación se adapta a la estructura de misiones de la aplicación, para construir los diferentes mensajes y el envío de misión. En el Código \ref{listing:protocol-mission} se recoge el resultado final de la implementación del protocolo.
+Para la implementación del protocolo se parte de un pseudo-código propuesto por la Universidad de Colorado Boulder \cite{implem-prot}. Este boceto de implementación se adapta a la estructura de misiones de la aplicación para construir los diferentes mensajes y el envío de misión. En el Código \ref{listing:protocol-mission} se recoge el resultado final de la implementación del protocolo.
 
 \vspace{2mm}
 
@@ -482,7 +484,7 @@ Como se puede observar en el código, existen diferencias entre los mensajes env
 \label{table:msg-autopilot}
 \end{table}
 
-Además, la tabla anterior (Tab. \ref{table:msg-autopilot}) también indica que información se extrae de cada mensaje. Los parámetros de los mensajes enviados puede comprobarse en la documentación de MAVLink \cite{mavlink-msg}. \\
+Además, la tabla anterior (Tab. \ref{table:msg-autopilot}) también indica qué información se extrae de cada mensaje. Los parámetros de los mensajes enviados puede comprobarse en la documentación de MAVLink \cite{mavlink-msg}. \\
 El hilo de navegación se encarga de acceder periódicamente a la interfaz y actualizar en la interfaz gráfica de usuario esta información. La lectura y escritura sobre la interfaz se protege mediante semáforos para evitar conflictos entre entes. Entre la información actualizada destaca la ventana secundaria de sensores que se puede desplegar desde la pestaña de seguimiento (\emph{follow}). Esta pestaña muestra de forma sencilla y muy visual el estado de la aeronave en vuelo replicando los instrumentos de vuelo de una cabina convencional. La Figura \ref{fig:vent-sens} muestra esta ventana.
 
 \begin{figure}[h]
@@ -492,10 +494,10 @@ El hilo de navegación se encarga de acceder periódicamente a la interfaz y act
     \label{fig:vent-sens}
 \end{figure}
 
-Por último, se presenta un esquema que trata de representar el flujo de información y la secuencia de llamadas del control de vuelo. Este diagrama se muestra en conjunto con el otro control de vuelo y se puede observar en la Figura \ref{fig:control-vuelo}.
+Por último, se presenta un esquema que representa el flujo de información y la secuencia de llamadas del control de vuelo. Este diagrama se muestra en conjunto con el otro control de vuelo y se puede observar en la Figura \ref{fig:control-vuelo}.
 
 \subsection{Control de vuelo: Posicionamiento de aeronave}
-El control de vuelo que se encarga del posicionamiento de la aeronave funciona dde forma similar al anterior. El \emph{handler} actualiza la interfaz \emph{Pose3D} con los datos de posicionamiento a través del procedimiento \emph{refreshAPMPose3D()}. Dicho fragmento de código se presenta a continuación (Cód. \ref{listing:refresh-pos}). Los mensajes enviados por cada autopiloto se presentan en la Tabla \ref{table:msg-autopilot}. Los parámetros estos mensajes enviados puede comprobarse en la documentación de MAVLink \cite{mavlink-msg}.
+El control de vuelo que se encarga del posicionamiento de la aeronave funciona de forma similar al anterior. El \emph{handler} actualiza la interfaz \emph{Pose3D} con los datos de posicionamiento a través del procedimiento \emph{refreshAPMPose3D()}. Dicho fragmento de código en el Código \ref{listing:refresh-pos}. Los mensajes enviados por cada autopiloto se presentan en la Tabla \ref{table:msg-autopilot}. Los parámetros de estos mensajes enviados pueden comprobarse en la documentación de MAVLink \cite{mavlink-msg}.
 
 \vspace{2mm}
 
@@ -507,7 +509,7 @@ El control de vuelo que se encarga del posicionamiento de la aeronave funciona d
 
 \vspace{5mm}
 
-El hilo de posición accede periódicamente a la interfaz y actualiza en la escena la posición de la aeronave. La lectura y escritura sobre la interfaz se protege mediante semáforos para evitar conflictos entre entes. La posición de la aeronave se muestra sobre la escena gracias a la última herramienta de la escena que faltaba por introducir. Esta herramienta aporta un elemento gráfico que puede ser desplegado sobre la escena, y cuya posición se actualiza con la información de la interfaz.
+El hilo de posición accede periódicamente a la interfaz y actualiza en la escena gráfica la posición de la aeronave. La lectura y escritura sobre la interfaz se protege mediante semáforos para evitar conflictos entre entes. La posición de la aeronave se muestra sobre la escena gracias a la última herramienta de la escena que faltaba por introducir. Esta herramienta aporta un elemento gráfico que puede ser desplegado sobre la escena, y cuya posición se actualiza con la información de la interfaz.
 
 \begin{figure}[h]
     \centering
@@ -545,7 +547,7 @@ Para el cambio de velocidad de crucero es necesario utilizar otro protocolo de M
     \label{fig:protocol-cmd}
 \end{figure}
 
-La estructura del mensaje \emph{COMMAND\_LONG} se muestra en la Tabla \ref{table:cmd-long}. Para un cambio de velocidad el comando enviado es \emph{MAV\_CMD\_DO\_CHANGE\_SPEED} cuyos parámetros se pueden observar en la Tabla \ref{table:cmd-change-speed}. Para mas detalles acerca de los campos del mensaje se recomienda visitar la documentación de MAVLink \cite{cmd-long}. \\
+La estructura del mensaje \emph{COMMAND\_LONG} se muestra en la Tabla \ref{table:cmd-long}. Para un cambio de velocidad el comando enviado es \emph{MAV\_CMD\_DO\_CHANGE\_SPEED} cuyos parámetros se pueden observar en la Tabla \ref{table:cmd-change-speed}. Para más detalles acerca de los campos del mensaje se recomienda visitar la documentación de MAVLink \cite{cmd-long}. \\
 Por otro lado, la implementación en código del envío del mensaje para el cambio de velocidad se muestra en el Código \ref{listing:cambio-vel}.
 
 \begin{table}[H]
