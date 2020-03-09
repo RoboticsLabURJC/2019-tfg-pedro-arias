@@ -1,6 +1,6 @@
 \documentclass[../main.tex]{subfiles}
 En este capítulo se recogen las pruebas realizadas a la estación de tierra. A partir de los resultados obtenidos tanto en simulación como en pruebas reales se persigue su validación experimental. Estos experimentos han de comprobar que los objetivos planteados en este proyecto se cumplen. \\
-Además de las pruebas unitarias de diferentes partes de la aplicación realizadas para verificar los casos de uso, en este capítulo se detallan las pruebas integrales de vuelo realizadas. Estas pruebas se han realizado tanto en simulación como en con la aeronave real. \\
+Además de las pruebas unitarias de diferentes partes de la aplicación realizadas para verificar los casos de uso, en este capítulo se detallan las pruebas integrales de vuelo realizadas. Estas pruebas se han realizado tanto en simulación como con la aeronave real. \\
 Principalmente, se han realizado dos pruebas de vuelo. Ambos experimentos en simulación y con una aeronave real de ala rotatoria, el 3DR Solo Drone (ver Figura \ref{fig:3dr}). En uno se ha realizado con una misión polilínea mientras que el otro con una misión por patrón. Estos test de vuelo de la aplicación se verán con profundidad en las secciones de este capítulo. \\
 También se adjunta una lista de reproducción \footnote{https://www.youtube.com/playlist?list=PLGlX46StCA-QAXmeQp5omNhllGJ3CMjcO} que recoge la evolución de la aplicación a lo largo del tiempo con las distintas versiones realizadas. Aproximadamente cada mes se ha grabado un vídeo con las principales novedades de desarrollo durante ese periodo. Esta lista muestra una visión de las características de la aplicación y de los tiempos de desarrollo empleados. \\
 Para realizar las pruebas de vuelo en real ha sido necesario desplazarse a un campo de vuelo donde se cumpliese la legislación actual. En campo de vuelo elegido ha sido el de Seseña \cite{campo-vuelo}. La Figura \ref{fig:campo-vuelo} muestra parte de las instalaciones y el despliegue realizado durante las pruebas.
@@ -12,8 +12,8 @@ Para realizar las pruebas de vuelo en real ha sido necesario desplazarse a un ca
     \label{fig:campo-vuelo}
 \end{figure}
 
-\section{Misión polilínea en simulación.}
-Este experimento realiza en un entorno de simulación la creación de una misión polilínea, el envío a la aeronave y el seguimiento de la misión. La simulación permite la detección de errores sin poner en riesgo a la aeronave. La Figura \ref{fig:sim-pol} contiene unas capturas de pantalla realizadas durante la simulación. La secuencia de ejecución seguida ha sido:
+\section{Vuelo en simulador con misiones polilínea.}
+Este experimento realiza en un entorno de simulación la creación de una misión polilínea, el envío a la aeronave y el seguimiento de la misión. La simulación permite la detección de errores sin poner en riesgo a la aeronave. La Figura \ref{fig:sim-pol} contiene unas capturas de pantalla realizadas durante la simulación. El siguiente enlace \footnote{https://youtu.be/SEdT\_Rq\_59A} muestra un vídeo con la simulación realizada. La secuencia de ejecución seguida ha sido:
 
 \begin{enumerate}
     \item Lanzamiento de la simulación mediante un SITL de PX4 con Gazebo9. Ejecución de la aplicación.
@@ -44,7 +44,7 @@ Este experimento realiza en un entorno de simulación la creación de una misió
 
 Tras realizar la prueba en simulación y comprobar el buen funcionamiento de la aplicación se considera que el software ya está listo para realizar pruebas en real. Esta prueba en real se muestra en la siguiente sección.
 
-\section{Prueba de vuelo real para misiones polilínea.}
+\section{Vuelo real con misiones polilínea.}
 Este experimento reproduce un supuesto en el cual un operario realiza una misión polilínea \emph{in situ}, la envía a la aeronave y realiza el seguimiento de la misma. Para documentar la prueba de vuelo se ha generado un vídeo del que se adjunta su enlace \footnote{https://youtu.be/UOv8Go\_Q22k}. La Figura \ref{fig:prueba-pol} muestra una serie de fotogramas del vídeo mencionado. \\
 
 La secuencia de ejecución seguida durante el experimento ha sido la siguiente:
@@ -98,8 +98,8 @@ La secuencia de ejecución seguida durante el experimento ha sido la siguiente:
 
 Tras realizar esta prueba integral se concluye que la aeronave completa satisfactoriamente la misión polilínea. El drone despega, recorre la secuencia de puntos de paso y aterriza en los puntos de paso especificados por el usuario a través de la aplicación desarrollada. Además, la posición de la aeronave se puede seguir en todo momento a través de la estación de tierra. Lo mismo sucede con otros parámetros de navegación como las velocidades o la actitud de la aeronave.
 
-\section{Misión de patrón en simulación.}
-Este experimento realiza en un entorno de simulación la creación de una misión por patrón, el envío a la aeronave y el seguimiento de la misión. La simulación permite la detección de errores sin poner en riesgo a la aeronave. La Figura \ref{fig:sim-patron} contiene unas capturas de pantalla realizadas durante la simulación. La secuencia de ejecución seguida ha sido:
+\section{Vuelo en simulador con misiones por patrón.}
+Este experimento realiza en un entorno de simulación la creación de una misión por patrón, el envío a la aeronave y el seguimiento de la misión. La simulación permite la detección de errores sin poner en riesgo a la aeronave. La Figura \ref{fig:sim-patron} contiene unas capturas de pantalla realizadas durante la simulación. El siguiente enlace \footnote{https://youtu.be/0FcyvPnj5B0} muestra un vídeo con la simulación realizada. La secuencia de ejecución seguida ha sido:
 
 \begin{enumerate}
     \item Lanzamiento de la simulación mediante un SITL de PX4 con Gazebo9. Ejecución de la aplicación.
@@ -130,7 +130,7 @@ Este experimento realiza en un entorno de simulación la creación de una misió
 
 Tras realizar la prueba en simulación y comprobar el buen funcionamiento de la aplicación se considera que el software ya está listo para realizar pruebas en real. Esta prueba en real se muestra en la siguiente sección.
 
-\section{Prueba de vuelo para misiones por patrón.}
+\section{Vuelo real con misiones por patrón.}
 Este ensayo de vuelo reproduce una situación en la cual un operario carga una misión por patrón previamente creada, la envía a la aeronave y realiza el seguimiento de la misma. Se adjunta un enlace de un vídeo \footnote{https://youtu.be/tpmpdkG0CjM} con el experimento real. Además, la Figura \ref{fig:prueba-pol} muestra un fotograma del vídeo adjunto. \\
 
 La secuencia de ejecución seguida durante la prueba de vuelo ha sido la siguiente:
