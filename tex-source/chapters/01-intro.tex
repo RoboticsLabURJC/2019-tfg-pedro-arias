@@ -14,7 +14,7 @@ Existen diversas clasificaciones en función de su arquitectura, de su aplicaci�
     \item \textbf{Zoomórficos:} Son aquellos que trata de reproducir en mayor o menor grado de realismo los sistemas de locomoción de diversos seres vivos. Este tipo podría incluir también a la morfología androide, en función del autor de la clasificación. Una subclasificación distingue entre robots caminadores y no caminadores.
 \end{itemize}
 
-Este trabajo se enmarca dentro de la robótica móvil, y más en concreto, dentro de la robótica aérea. La robótica aérea es la rama de la robótica que se encarga del estudio del comportamiento autónomo de aeronaves no tripuladas. Se entiende como una aeronave no tripulada (UAV, \emph{Unmanned Aerial Vehicle}, o más recientemente UAVS, \emph{Unmanned Aircraft Vehicle System}) a aquella que es capaz de realizar una misión sin necesidad de tener una tripulación embarcada \cite{barrientos2007vehiculos}. \\
+Este trabajo se enmarca dentro de la robótica móvil, y más en concreto, dentro de la robótica aérea. La robótica aérea es la rama de la robótica que se encarga del estudio del comportamiento autónomo de aeronaves no tripuladas. Se entiende como una aeronave no tripulada (UAV, \emph{Unmanned Aerial Vehicle}, o más recientemente UAVS, \emph{Unmanned Aircraft Vehicle System}) a aquella que es capaz de realizar una misión sin necesidad de tener una tripulación embarcada \cite{barrientos2007vehiculos}. Otro término que también se utiliza con frecuencia es VANT, Vehículo Aéreo No Tripulado. \\
 
 \begin{figure}[!ht]
     \centering
@@ -91,7 +91,7 @@ En la actualidad tiende a utilizarse el concepto de UAVS frente al de UAV. La ex
 \pagebreak
 
 \section{Problema y motivación} \label{section:intro-problema}
-Este trabajo se centra en el diseño e implementación del primer prototipo de un software tipo \emph{estación de tierra} que permita la operación automática remota de un Vehículo Aéreo no Tripulado (UAV, \emph{Unmanned Aerial Vehicles}), a los que me dirigiré comúnmente como \emph{drones} a lo largo de esta memoria. \\
+Este Trabajo Fin de Grado se centra en el diseño e implementación del primer prototipo de un software tipo \emph{estación de tierra} que permita la operación automática remota de un Vehículo Aéreo no Tripulado (UAV, \emph{Unmanned Aerial Vehicles}), a los que me dirigiré comúnmente como \emph{drones} a lo largo de esta memoria. \\
 Esta oportunidad surge del desarrollo del grupo de investigación de robótica (@RoboticsLabURJC \cite{roboticslab}) de la Universidad Rey Juan Carlos (URJC) y la asociación JdeRobot \cite{jderobot}, con el proyecto \emph{ROSpilot, software para operación y navegación de un UAV}, en la cual he tenido la suerte de colaborar. \\
 %Esta oportunidad surge de la colaboración entre la empresa madrileña CONYCA S.L. \cite{conyca} y el grupo de investigación de robótica (@RoboticsLabURJC \cite{roboticslab}) de la Universidad Rey Juan Carlos (URJC), con el proyecto \emph{ROSpilot, software para operación y navegación de un UAV}, en la cual he tenido la suerte de ser invitado a colaborar. \\
 Profundizando en la estación terrestre requerida, se busca automatizar procesos tediosos relacionados con labores de cartografía y toma de fotografía aérea. En este tipo de misiones es común utilizar drones de ala fija (tipo \emph{Geodrone Mapper} \cite{geodrone}, ver figura \ref{fig:geodrone}), lo cual agranda aún más el desafío propuesto debido a las limitaciones existentes en las operaciones de una aeronave de ala fija. \\
@@ -103,13 +103,13 @@ Profundizando en la estación terrestre requerida, se busca automatizar procesos
     \label{fig:geodrone}
 \end{figure}
 
-La inmensa mayoría de estaciones de tierra propone soluciones generales. Desde el inicio del proyecto se concibe un software íntimamente ligado a resolver y mitigar los problemas principales asociados a la cartografía y a la toma de fotografía aérea. \\
+La inmensa mayoría de estaciones de tierra propone soluciones generales. Es el caso de las principales aplicaciones en el mercado como QGroundControl \cite{qgroundcontrol} o MissionPlanner \cite{mission-planner}. Desde el inicio del proyecto se concibe un software íntimamente ligado a resolver y mitigar los problemas principales asociados a la cartografía y a la toma de fotografía aérea. \\
 En las siguientes secciones se describirá más en detalle el problema y como se afronta la solución del mismo. \\
 
 \section{Objetivos} \label{section:intro-objetivos}
 Tras presentar el problema a resolver en la sección anterior (Sección \ref{section:intro-problema}), en esta sección se quiere aclarar cuáles son los objetivos perseguidos. \\
 El objetivo principal es proporcionar una solución software que permita la operación automática remota a drones. En concreto, la aplicación desarrollada será denominada como \emph{UAVCommander} y parte del trabajo previo desarrollado por José Antonio Fernández Casillas en su proyecto fin de carrera \emph{Navegación por posición para un avión autónomo con JdeRobot} \cite{pfc-jose}. \\
-En el proyecto se describen una serie de funcionalidades o requisitos que debe incluir la aplicación, los cuales se consideran objetivos secundarios:
+En el proyecto actual se describen una serie de funcionalidades o requisitos que debe incluir la aplicación, los cuales se consideran objetivos secundarios:
 
 \begin{itemize}
     \item \textbf{Caracterización de la aeronave y carga de pago.} El usuario podrá configurar datos operativos de la aeronave y datos de la carga de pago, que consiste en una cámara con la que se tomarán las fotografías para realizar la cartografía.
